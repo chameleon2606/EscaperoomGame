@@ -1,0 +1,7 @@
+E:\SAE\Escaperoom\EscaperoomGame\bin\Debug\EscaperoomGame.exe
+E:\SAE\Escaperoom\EscaperoomGame\bin\Debug\EscaperoomGame.pdb
+E:\SAE\Escaperoom\EscaperoomGame\obj\Debug\EscaperoomGame.csproj.AssemblyReference.cache
+E:\SAE\Escaperoom\EscaperoomGame\obj\Debug\EscaperoomGame.csproj.SuggestedBindingRedirects.cache
+E:\SAE\Escaperoom\EscaperoomGame\obj\Debug\EscaperoomGame.csproj.CoreCompileInputs.cache
+E:\SAE\Escaperoom\EscaperoomGame\obj\Debug\EscaperoomGame.exe
+E:\SAE\Escaperoom\EscaperoomGame\obj\Debug\EscaperoomGame.pdb
