@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Media;
 
 namespace EscaperoomGame
 {
@@ -6,75 +7,130 @@ namespace EscaperoomGame
     {
         public static void Main(string[] args)
         {
+            var walkSound = new SoundPlayer
+            {
+                SoundLocation = @"E:\SAE\Escaperoom\EscaperoomGame\sounds\sound1.wav"
+            };
+            var wallSound = new SoundPlayer
+            {
+                SoundLocation = @"E:\SAE\Escaperoom\EscaperoomGame\sounds\sound2.wav"
+            };
+            var keySound = new SoundPlayer
+            {
+                SoundLocation = @"E:\SAE\Escaperoom\EscaperoomGame\sounds\sound3.wav"
+            };
+            
             bool LevelClear = false; //game finished if set to true
-            bool keyCollected = false;
-            int posX = 0, posY = 0; //coordinaten des cursors (player)
+            bool keyCollected = false;  //key counts as collected if set to true
+            
+            //room dimentions
+            int roomX = 10; 
+            int roomY = 10;
+            
+            //coordinaten des players
+            int posX = 0, posY = 0; 
+            
+            //key coordinaten 
             int keyX = 0, keyY = 0;
+            
+            //tür
             int doorX = 0, doorY = 0;
 
             string playerIcon = "*";
             const string keyIcon = "@";
             const string doorIcon = "|";
             
+            //intro text
             Console.Clear();
-            Console.WriteLine("~ Welcome to my escape room! ~\nThe rules are simple:\nFind the key and go through the door!"); //intro
-            Console.WriteLine("Specify the size of the room in fields\n");
-            
-            Console.Write("\nHeight: ");
-            var x = Convert.ToInt32(Console.ReadLine());    //convert string input to int
-            Console.Write("Width: ");
-            var y = Convert.ToInt32(Console.ReadLine());    //convert string input to int
-            
-            Console.CursorVisible = false;  //hides the cursor
+            Console.WriteLine("~ Welcome to my escape room! ~\nThe rules are simple:\nFind the key and go through the door!"); 
+            Console.WriteLine("\nSpecify the size of the room in fields\nMake sure that the width and height are at least 5 tiles!\n");
 
-            Random rnd = new Random();  //places player and keys at random places
+            //user declares height and width of the room
+            //reprompts input if the room is too small
+            do
+            {
+                if (roomX < 5 || roomY < 5)
+                {
+                    Console.WriteLine("The room is too small..");
+                }
+                Console.Write("\nHeight: ");
+                roomX = Convert.ToInt32(Console.ReadLine());    //convert string input to int
+                Console.Write("Width: ");
+                roomY = Convert.ToInt32(Console.ReadLine());    //convert string input to int
+            } while (roomX < 5 || roomY < 5);
             
-            posX = rnd.Next(1, x - 1);
-            posY = rnd.Next(1, y - 1);
+            //hides the cursor
+            Console.CursorVisible = false;
+
+            //places player and keys at random places
+            Random rnd = new Random();
             
-            keyX = rnd.Next(1, x - 1);
-            keyY = rnd.Next(1, y - 1);
+            //generates random coordinates for player, keys and the door
+            posX = rnd.Next(1, roomX - 1);
+            posY = rnd.Next(1, roomY - 1);
             
-            doorY = rnd.Next(1,y-1);
+            keyX = rnd.Next(1, roomX - 1);
+            keyY = rnd.Next(1, roomY - 1);
             
+            doorY = rnd.Next(1,roomY-1);
+            
+            //if the key and player spawned on the same position, recalculate the key coordinate
             while (posX == keyX && posY == keyY)
             {
-                keyX = rnd.Next(1, x - 1);
-                keyY = rnd.Next(1, y - 1);
+                keyX = rnd.Next(1, roomX - 1);
+                keyY = rnd.Next(1, roomY - 1);
             }
-
+            
+            //loops and refreshes the game room as long as the variable "LevelClear" is false
             while (!LevelClear)
             {
-                DrawRoom(x, y); //draw the room
+                DrawRoom(roomX, roomY); //draw the room
                 
-                //  Boundaries
-                if (posX <= 1)
+                //Boundaries
+                //if the player steps where a wall is, it gets set back
+                if (posX < 1)
                 {
                     posX = 1;
+                    wallSound.Play();
                 }
-                if (posY <= 1)
+                if (posY < 1)
                 {
                     posY = 1;
+                    wallSound.Play();
                 }
-                if (posY >= y-2)
+                if (posY > roomY-2)
                 {
-                    posY = y-2;
+                    posY = roomY-2;
+                    wallSound.Play();
                 }
-                if (posX >= x-2)
+                if (posX > roomX-2)
                 {
-                    posX = x-2;
+                    posX = roomX-2;
+                    wallSound.Play();
                 }
 
+                //shows key and door coordinates below the room in gray
                 Console.ForegroundColor = ConsoleColor.DarkGray;
-                Console.WriteLine($"\nplayer at X: {posX}, Y: {posY}"); //shows coordinates below the room
-                Console.WriteLine($"\ndoor at X: {doorX}, Y: {doorY}");    //shows door coordiantes
+                Console.WriteLine($"\nplayer at X: {posX}, Y: {posY}"); 
+                Console.WriteLine($"\ndoor at X: {doorX}, Y: {doorY}");
                 
-                Console.SetCursorPosition(x-1, doorY);  //place cursor and draw door
-                Console.ForegroundColor = ConsoleColor.Green;
+                //place cursor and draw door
+                Console.SetCursorPosition(roomX-1, doorY);
+                //door is green if "keyCollected" is set to true
+                if (keyCollected)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                }
                 Console.Write(doorIcon);
                 
-                Console.SetCursorPosition(posX, posY);  //places cursor and draws player
-                if (!keyCollected)  //changes color when key is collected
+                //places cursor and is ready to draw the player char
+                Console.SetCursorPosition(posX, posY);
+                //changes color when key is collected
+                if (!keyCollected)  
                 {
                     Console.ForegroundColor = ConsoleColor.DarkCyan;
                 }
@@ -84,22 +140,28 @@ namespace EscaperoomGame
                 }
                 Console.Write(playerIcon); //Player char
                 
-                if (!keyCollected)  //Disables key icon when collected
+                //Draw key if it's not collected yet
+                if (!keyCollected)
                 {
-                    Console.SetCursorPosition(keyX, keyY);  //places cursor and draws key
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.Write(keyIcon); //Key char
+                    Console.SetCursorPosition(keyX, keyY);  //places cursor for key
+                    Console.ForegroundColor = ConsoleColor.Yellow; //key color
+                    Console.Write(keyIcon); //writes key
                 }
                 
+                //if player and key are on the same field, "keyCollected" set to true
                 if (posX == keyX && posY == keyY)
                 {
                     keyCollected = true;
-                    playerIcon = "@";
+                    //player icon is now the key icon
+                    playerIcon = keyIcon;
+                    keySound.Play();
                 }
                 
-                var arrow = Console.ReadKey().Key; //Key press stored to variable "arrow"
+                //Key press stored to variable "arrow"
+                var arrow = Console.ReadKey().Key;
                 
-                switch (arrow)  //player movement
+                //switch statement for player movement
+                switch (arrow)
                 {
                     case ConsoleKey.W:
                         posY--;
@@ -115,12 +177,15 @@ namespace EscaperoomGame
                         break;
                 }
                 
-                if (posX == x-1 && posY == doorY && keyCollected) //door entered with key
+                //if player has the key and is at the door "levelClear" is set to true
+                //gameplay loop ends
+                if (posX == roomX-1 && posY == doorY && keyCollected)
                 {
                     LevelClear = true;
                 }
             }
             
+            //game ends
             Console.Clear();
             Console.WriteLine("Congrats! You've finished the game!");
             Console.ReadKey();
@@ -130,7 +195,7 @@ namespace EscaperoomGame
         {
             Console.Clear();    //refreshes console each move
 
-            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
             
             //algorithm 
             for (int i = 0; i < y; i++) //draw x vertical lines

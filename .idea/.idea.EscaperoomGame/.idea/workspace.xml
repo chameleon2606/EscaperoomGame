@@ -8,37 +8,68 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ad3ea44b-a1a7-45db-b60e-c50a7360cdf0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.EscaperoomGame/.idea/discord.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EscaperoomGame/.idea/discord.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sounds/sound1.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sounds/sound2.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sounds/sound3.wav" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.EscaperoomGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EscaperoomGame/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/EscaperoomGame.exe" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/EscaperoomGame.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/EscaperoomGame.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/EscaperoomGame.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/EscaperoomGame.exe" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/EscaperoomGame.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/EscaperoomGame.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/EscaperoomGame.pdb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="ExportToHTMLSettings">
+    <option name="printScope" value="1" />
+    <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/exportToHTML" />
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 5
-}]]></component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;chameleon2606&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="be1045db-f77c-45fe-9e5a-43ad4e0735c5" />
+        <option name="url" value="https://github.com/chameleon2606/EscaperoomGame.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
+  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="2V1r3T3KaMTl4WrPekGybj52vXK" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
+    "full.screen.before.presentation.mode": "false",
     "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "settings.editor.selected.configurable": "preferences.customizations",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -78,13 +109,37 @@
       <option name="presentableId" value="Default" />
       <updated>1694014227537</updated>
       <workItem from="1694014228588" duration="25486000" />
+      <workItem from="1694086561590" duration="2878000" />
+      <workItem from="1694089499473" duration="373000" />
+      <workItem from="1694089908005" duration="2176000" />
+      <workItem from="1694092968618" duration="12000" />
+      <workItem from="1694093063367" duration="569000" />
+      <workItem from="1694093665224" duration="3789000" />
+      <workItem from="1694111558110" duration="9616000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
