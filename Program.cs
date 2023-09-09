@@ -59,6 +59,10 @@ namespace EscaperoomGame
                     {
                         Console.WriteLine("The room is too small..");
                     }
+                    else if (roomX > 20 || roomY > 20)
+                    {
+                        Console.WriteLine("The room is too big..");
+                    }
                     
                     //writes the height to a string and checks if it's a valid number
                     do
@@ -90,7 +94,7 @@ namespace EscaperoomGame
                     roomY = int.Parse(roomStringY);
 
 
-                } while (roomX < 5 || roomY < 5);
+                } while (roomX < 5 || roomY < 5 || roomX > 20 || roomY > 20);
             
                 //hides the cursor
                 Console.CursorVisible = false;
