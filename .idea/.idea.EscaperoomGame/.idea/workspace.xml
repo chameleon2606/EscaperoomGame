@@ -10,6 +10,10 @@
     <list default="true" id="ad3ea44b-a1a7-45db-b60e-c50a7360cdf0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.EscaperoomGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EscaperoomGame/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/EscaperoomGame.exe" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/EscaperoomGame.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/EscaperoomGame.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/EscaperoomGame.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/EscaperoomGame.exe" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/EscaperoomGame.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/EscaperoomGame.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/EscaperoomGame.pdb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,7 +115,8 @@
       <workItem from="1694111558110" duration="10426000" />
       <workItem from="1694178623941" duration="2926000" />
       <workItem from="1694191307838" duration="11432000" />
-      <workItem from="1694278760586" duration="352000" />
+      <workItem from="1694278760586" duration="1035000" />
+      <workItem from="1694363425493" duration="6039000" />
     </task>
     <task id="LOCAL-00001" summary="more gameplay and added sounds">
       <option name="closed" value="true" />
@@ -129,7 +134,15 @@
       <option name="project" value="LOCAL" />
       <updated>1694204127545</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="maximum room size cap">
+      <option name="closed" value="true" />
+      <created>1694285289655</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1694285289655</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -152,7 +165,8 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="more gameplay and added sounds" />
     <MESSAGE value="restart feature and bug fixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="restart feature and bug fixes" />
+    <MESSAGE value="maximum room size cap" />
+    <option name="LAST_COMMIT_MESSAGE" value="maximum room size cap" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

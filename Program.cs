@@ -20,8 +20,9 @@ namespace EscaperoomGame
                 SoundLocation = @"E:\SAE\Escaperoom\EscaperoomGame\sounds\sound3.wav"
             };
             
-            bool LevelClear = false; //game finished if set to true
+            bool levelClear = false; //game finished if set to true
             bool keyCollected = false;  //key counts as collected if set to true
+            bool showPosition = true;
             
             //room dimentions
             int roomX = 10; 
@@ -44,11 +45,19 @@ namespace EscaperoomGame
             
             //intro text
             Console.Clear();
-            Console.WriteLine("~ Welcome to my escape room! ~\nThe rules are simple:\nFind the key and go through the door!");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("~ Welcome to my escape room! ~\n\nThe rules are simple:\nFind the");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write(" key ");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("and go through the door.\n\nMove your character with");
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.Write(" W, A, S and D");
+            Console.ForegroundColor = ConsoleColor.White;
             
             while (true)
             {
-                Console.WriteLine("\nSpecify the size of the room in fields\nMake sure that the width and height are at least 5 tiles!\n");
+                Console.WriteLine("\nSpecify the size of the room.\nMake sure that it's between 5 and 20 fields big\n");
 
                 //user declares height and width of the room
                 //reprompts input if the room is too small
@@ -119,7 +128,7 @@ namespace EscaperoomGame
                 }
             
                 //loops and refreshes the game room as long as the variable "LevelClear" is false
-                while (!LevelClear)
+                while (!levelClear)
                 {
                     DrawRoom(roomX, roomY); //draw the room
                     
@@ -130,20 +139,24 @@ namespace EscaperoomGame
                         posX = 1;
                         wallSound.Play();
                     }
-                    if (posY < 1)
+                    else if (posY < 1)
                     {
                         posY = 1;
                         wallSound.Play();
                     }
-                    if (posY > roomY-2)
+                    else if (posY > roomY-2)
                     {
                         posY = roomY-2;
                         wallSound.Play();
                     }
-                    if (posX > roomX-2)
+                    else if (posX > roomX-2)
                     {
                         posX = roomX-2;
                         wallSound.Play();
+                    }
+                    else
+                    {
+                        //walkSound.Play();
                     }
 
                     //shows coordinates below the room in gray
@@ -164,10 +177,11 @@ namespace EscaperoomGame
                     }
                     Console.Write(doorIcon);
                     
+                    
                     //places cursor and is ready to draw the player char
                     Console.SetCursorPosition(posX, posY);
                     //changes color when key is collected
-                    if (!keyCollected)  
+                    if (!keyCollected)
                     {
                         Console.ForegroundColor = ConsoleColor.DarkCyan;
                     }
@@ -175,7 +189,14 @@ namespace EscaperoomGame
                     {
                         Console.ForegroundColor = ConsoleColor.Yellow;
                     }
+                    
                     Console.Write(playerIcon); //Player char
+                    
+                    if (showPosition)
+                    {
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.Write(" <-- Your character");
+                    }
                 
                     //Draw key if it's not collected yet
                     if (!keyCollected)
@@ -183,12 +204,20 @@ namespace EscaperoomGame
                         Console.SetCursorPosition(keyX, keyY);  //places cursor for key
                         Console.ForegroundColor = ConsoleColor.Yellow; //key color
                         Console.Write(keyIcon); //writes key
+                        
+                        if (showPosition)
+                        {
+                            Console.ForegroundColor = ConsoleColor.White;
+                            Console.Write(" <-- Collect the key");
+                            showPosition = false;
+                        }
                     }
                 
                     //if player and key are on the same field, "keyCollected" set to true
                     if (posX == keyX && posY == keyY)
                     {
                         keyCollected = true;
+                        
                         //player icon is now the key icon
                         playerIcon = keyIcon;
                         keySound.Play();
@@ -220,7 +249,7 @@ namespace EscaperoomGame
                     //gameplay loop ends
                     if (posX == roomX-1 && posY == doorY && keyCollected)
                     {
-                        LevelClear = true;
+                        levelClear = true;
                     }
                 }
                 
@@ -247,10 +276,12 @@ namespace EscaperoomGame
                 }
 
                 //resets variables for game restart
-                LevelClear = false;
+                levelClear = false;
                 keyCollected = false;
+                showPosition = true;
                 playerIcon = "*";
                 Console.CursorVisible = true;
+                
             }
         }
         
