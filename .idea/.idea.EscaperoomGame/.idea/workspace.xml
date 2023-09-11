@@ -8,6 +8,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ad3ea44b-a1a7-45db-b60e-c50a7360cdf0" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/sounds/walk1.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sounds/walk2.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sounds/walk3.wav" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.EscaperoomGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EscaperoomGame/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/EscaperoomGame.exe" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/EscaperoomGame.exe" afterDir="false" />
@@ -116,7 +119,10 @@
       <workItem from="1694178623941" duration="2926000" />
       <workItem from="1694191307838" duration="11432000" />
       <workItem from="1694278760586" duration="1035000" />
-      <workItem from="1694363425493" duration="6039000" />
+      <workItem from="1694363425493" duration="6469000" />
+      <workItem from="1694376546784" duration="28000" />
+      <workItem from="1694423090053" duration="1000" />
+      <workItem from="1694466111537" duration="4582000" />
     </task>
     <task id="LOCAL-00001" summary="more gameplay and added sounds">
       <option name="closed" value="true" />
@@ -142,7 +148,15 @@
       <option name="project" value="LOCAL" />
       <updated>1694285289655</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="performance optimization">
+      <option name="closed" value="true" />
+      <created>1694375525623</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1694375525623</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -166,7 +180,8 @@
     <MESSAGE value="more gameplay and added sounds" />
     <MESSAGE value="restart feature and bug fixes" />
     <MESSAGE value="maximum room size cap" />
-    <option name="LAST_COMMIT_MESSAGE" value="maximum room size cap" />
+    <MESSAGE value="performance optimization" />
+    <option name="LAST_COMMIT_MESSAGE" value="performance optimization" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

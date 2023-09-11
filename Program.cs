@@ -7,9 +7,18 @@ namespace EscaperoomGame
     {
         public static void Main(string[] args)
         {
-            var walkSound = new SoundPlayer
+            //TODO: sounds deactivated for now until i can figure out how to make it work on other computers
+            var walkSound1 = new SoundPlayer
             {
-                SoundLocation = @"E:\SAE\Escaperoom\EscaperoomGame\sounds\sound1.wav"
+                SoundLocation = @"E:\SAE\Escaperoom\EscaperoomGame\sounds\walk1.wav"
+            };
+            var walkSound2 = new SoundPlayer
+            {
+                SoundLocation = @"E:\SAE\Escaperoom\EscaperoomGame\sounds\walk2.wav"
+            };
+            var walkSound3 = new SoundPlayer
+            {
+                SoundLocation = @"E:\SAE\Escaperoom\EscaperoomGame\sounds\walk3.wav"
             };
             var wallSound = new SoundPlayer
             {
@@ -137,32 +146,26 @@ namespace EscaperoomGame
                     if (posX < 1)
                     {
                         posX = 1;
-                        wallSound.Play();
+                        //wallSound.Play();
                     }
                     else if (posY < 1)
                     {
                         posY = 1;
-                        wallSound.Play();
+                        //wallSound.Play();
                     }
                     else if (posY > roomY-2)
                     {
                         posY = roomY-2;
-                        wallSound.Play();
+                        //wallSound.Play();
                     }
                     else if (posX > roomX-2)
                     {
                         posX = roomX-2;
-                        wallSound.Play();
-                    }
-                    else
-                    {
-                        //walkSound.Play();
+                        //wallSound.Play();
                     }
 
                     //shows coordinates below the room in gray
-                    Console.ForegroundColor = ConsoleColor.DarkGray;
-                    Console.WriteLine($"\nplayer at X: {posX}, Y: {posY}"); 
-                    //Console.WriteLine($"\ndoor at X: {doorX}, Y: {doorY}");
+                    ShowCoordinates(posX, posY);
                     
                     //place cursor and draw door
                     Console.SetCursorPosition(roomX-1, doorY);
@@ -189,8 +192,7 @@ namespace EscaperoomGame
                     {
                         Console.ForegroundColor = ConsoleColor.Yellow;
                     }
-                    
-                    Console.Write(playerIcon); //Player char
+                    Console.Write(playerIcon); //draw player char
                     
                     if (showPosition)
                     {
@@ -220,7 +222,7 @@ namespace EscaperoomGame
                         
                         //player icon is now the key icon
                         playerIcon = keyIcon;
-                        keySound.Play();
+                        //keySound.Play();
                         keyY = 0;
                         keyX = 0;
                     }
@@ -228,20 +230,25 @@ namespace EscaperoomGame
                     //Key press stored to variable "arrow"
                     var arrow = Console.ReadKey().Key;
                     
+                    //TODO: make the controls the arrow keys instead of WASD
                     //switch statement for player movement
                     switch (arrow)
                     {
                         case ConsoleKey.W:
                             posY--;
+                            //walkSound1.Play();
                             break;
                         case ConsoleKey.A:
                             posX--;
+                            //walkSound2.Play();
                             break;
                         case ConsoleKey.S:
                             posY++;
+                            //walkSound3.Play();
                             break;
                         case ConsoleKey.D:
                             posX++;
+                            //walkSound2.Play();
                             break;
                     }
                     
@@ -276,12 +283,16 @@ namespace EscaperoomGame
                 }
 
                 //resets variables for game restart
+                ResetVars();
+            }
+
+            void ResetVars()
+            {
                 levelClear = false;
                 keyCollected = false;
                 showPosition = true;
                 playerIcon = "*";
                 Console.CursorVisible = true;
-                
             }
         }
         
@@ -324,6 +335,12 @@ namespace EscaperoomGame
             }
 
             return true;
+        }
+
+        static void ShowCoordinates(int posX, int posY)
+        {
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.WriteLine($"\nplayer at X: {posX}, Y: {posY}"); 
         }
     }
 }
