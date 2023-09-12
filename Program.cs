@@ -228,7 +228,7 @@ namespace EscaperoomGame
                     }
                     
                     //Key press stored to variable "arrow"
-                    var arrow = Console.ReadKey().Key;
+                    var arrow = Console.ReadKey(true).Key;
                     
                     //TODO: make the controls the arrow keys instead of WASD
                     //switch statement for player movement
@@ -273,7 +273,7 @@ namespace EscaperoomGame
                 Console.Write("to quit the game.");
                 
                 //variable for next input
-                var continueInput = Console.ReadKey().Key;
+                var continueInput = Console.ReadKey(true).Key;
                 
                 //if the player presses "Q" the game will close
                 if (continueInput == ConsoleKey.Q)
