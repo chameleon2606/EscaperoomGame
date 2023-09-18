@@ -1,0 +1,166 @@
+Index: Program.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>using System;\nusing System.Media;\n\nnamespace EscaperoomGame\n{\n    internal class Program\n    {\n        public static void Main(string[] args)\n        {\n            var walkSound = new SoundPlayer\n            {\n                SoundLocation = @\"E:\\SAE\\Escaperoom\\EscaperoomGame\\sounds\\sound1.wav\"\n            };\n            var wallSound = new SoundPlayer\n            {\n                SoundLocation = @\"E:\\SAE\\Escaperoom\\EscaperoomGame\\sounds\\sound2.wav\"\n            };\n            var keySound = new SoundPlayer\n            {\n                SoundLocation = @\"E:\\SAE\\Escaperoom\\EscaperoomGame\\sounds\\sound3.wav\"\n            };\n            \n            bool levelClear = false; //game finished if set to true\n            bool keyCollected = false;  //key counts as collected if set to true\n            bool showPosition = true;\n            \n            //room dimentions\n            int roomX = 10; \n            int roomY = 10;\n\n            string roomStringX, roomStringY;\n            \n            //coordinaten des players\n            int posX = 0, posY = 0; \n            \n            //key coordinaten \n            int keyX = 0, keyY = 0;\n            \n            //tür\n            int doorY = 0;\n\n            string playerIcon = \"*\";\n            const string keyIcon = \"@\";\n            const string doorIcon = \"|\";\n            \n            //intro text\n            Console.Clear();\n            Console.ForegroundColor = ConsoleColor.White;\n            Console.Write(\"~ Welcome to my escape room! ~\\n\\nThe rules are simple:\\nFind the\");\n            Console.ForegroundColor = ConsoleColor.Yellow;\n            Console.Write(\" key \");\n            Console.ForegroundColor = ConsoleColor.White;\n            Console.Write(\"and go through the door.\\n\\nMove your character with\");\n            Console.ForegroundColor = ConsoleColor.DarkCyan;\n            Console.Write(\" W, A, S and D\");\n            Console.ForegroundColor = ConsoleColor.White;\n            \n            while (true)\n            {\n                Console.WriteLine(\"\\nSpecify the size of the room.\\nMake sure that it's between 5 and 20 fields big\\n\");\n\n                //user declares height and width of the room\n                //reprompts input if the room is too small\n                do\n                {\n                    //tells the player if the room is too small by checking the size\n                    if (roomX < 5 || roomY < 5)\n                    {\n                        Console.WriteLine(\"The room is too small..\");\n                    }\n                    else if (roomX > 20 || roomY > 20)\n                    {\n                        Console.WriteLine(\"The room is too big..\");\n                    }\n                    \n                    //writes the height to a string and checks if it's a valid number\n                    do\n                    {\n                        Console.Write(\"\\nHeight: \");\n                        //roomX = Convert.ToInt32(Console.ReadLine());\n                        roomStringX = Console.ReadLine();\n                        if (!IsAllDigits(roomStringX))\n                        {\n                            Console.WriteLine(\"\\nInvalid number..\\n\");\n                        }\n                    } while (!IsAllDigits(roomStringX));\n\n                    //parses (converts) the height into an integer (number)\n                    roomX = int.Parse(roomStringX);\n\n                    //same as height\n                    do\n                    {\n                        Console.Write(\"Width: \");\n                        //roomY = Convert.ToInt32(Console.ReadLine());\n                        roomStringY = Console.ReadLine();\n                        if (!IsAllDigits(roomStringY))\n                        {\n                            Console.WriteLine(\"\\nInvalid number..\\n\");\n                        }\n                    } while (!IsAllDigits(roomStringY));\n\n                    roomY = int.Parse(roomStringY);\n\n\n                } while (roomX < 5 || roomY < 5 || roomX > 20 || roomY > 20);\n            \n                //hides the cursor\n                Console.CursorVisible = false;\n\n                //places player and keys at random places\n                Random rnd = new Random();\n            \n                //generates random coordinates for player, keys and the door\n                posX = rnd.Next(1, roomX - 1);\n                posY = rnd.Next(1, roomY - 1);\n            \n                keyX = rnd.Next(1, roomX - 1);\n                keyY = rnd.Next(1, roomY - 1);\n            \n                doorY = rnd.Next(1,roomY-1);\n            \n                //if the key and player spawned on the same position, recalculate the key coordinate\n                while (posX == keyX && posY == keyY)\n                {\n                    keyX = rnd.Next(1, roomX - 1);\n                    keyY = rnd.Next(1, roomY - 1);\n                }\n            \n                //loops and refreshes the game room as long as the variable \"LevelClear\" is false\n                while (!levelClear)\n                {\n                    DrawRoom(roomX, roomY); //draw the room\n                    \n                    //Boundaries\n                    //if the player steps where a wall is, it gets set back\n                    if (posX < 1)\n                    {\n                        posX = 1;\n                        wallSound.Play();\n                    }\n                    else if (posY < 1)\n                    {\n                        posY = 1;\n                        wallSound.Play();\n                    }\n                    else if (posY > roomY-2)\n                    {\n                        posY = roomY-2;\n                        wallSound.Play();\n                    }\n                    else if (posX > roomX-2)\n                    {\n                        posX = roomX-2;\n                        wallSound.Play();\n                    }\n                    else\n                    {\n                        //walkSound.Play();\n                    }\n\n                    //shows coordinates below the room in gray\n                    Console.ForegroundColor = ConsoleColor.DarkGray;\n                    Console.WriteLine($\"\\nplayer at X: {posX}, Y: {posY}\"); \n                    //Console.WriteLine($\"\\ndoor at X: {doorX}, Y: {doorY}\");\n                    \n                    //place cursor and draw door\n                    Console.SetCursorPosition(roomX-1, doorY);\n                    //door is green if \"keyCollected\" is set to true\n                    if (keyCollected)\n                    {\n                        Console.ForegroundColor = ConsoleColor.Green;\n                    }\n                    else\n                    {\n                        Console.ForegroundColor = ConsoleColor.Red;\n                    }\n                    Console.Write(doorIcon);\n                    \n                    \n                    //places cursor and is ready to draw the player char\n                    Console.SetCursorPosition(posX, posY);\n                    //changes color when key is collected\n                    if (!keyCollected)\n                    {\n                        Console.ForegroundColor = ConsoleColor.DarkCyan;\n                    }\n                    else\n                    {\n                        Console.ForegroundColor = ConsoleColor.Yellow;\n                    }\n                    \n                    Console.Write(playerIcon); //Player char\n                    \n                    if (showPosition)\n                    {\n                        Console.ForegroundColor = ConsoleColor.White;\n                        Console.Write(\" <-- Your character\");\n                    }\n                \n                    //Draw key if it's not collected yet\n                    if (!keyCollected)\n                    {\n                        Console.SetCursorPosition(keyX, keyY);  //places cursor for key\n                        Console.ForegroundColor = ConsoleColor.Yellow; //key color\n                        Console.Write(keyIcon); //writes key\n                        \n                        if (showPosition)\n                        {\n                            Console.ForegroundColor = ConsoleColor.White;\n                            Console.Write(\" <-- Collect the key\");\n                            showPosition = false;\n                        }\n                    }\n                \n                    //if player and key are on the same field, \"keyCollected\" set to true\n                    if (posX == keyX && posY == keyY)\n                    {\n                        keyCollected = true;\n                        \n                        //player icon is now the key icon\n                        playerIcon = keyIcon;\n                        keySound.Play();\n                        keyY = 0;\n                        keyX = 0;\n                    }\n                    \n                    //Key press stored to variable \"arrow\"\n                    var arrow = Console.ReadKey().Key;\n                    \n                    //switch statement for player movement\n                    switch (arrow)\n                    {\n                        case ConsoleKey.W:\n                            posY--;\n                            break;\n                        case ConsoleKey.A:\n                            posX--;\n                            break;\n                        case ConsoleKey.S:\n                            posY++;\n                            break;\n                        case ConsoleKey.D:\n                            posX++;\n                            break;\n                    }\n                    \n                    //if player has the key and is at the door \"levelClear\" is set to true\n                    //gameplay loop ends\n                    if (posX == roomX-1 && posY == doorY && keyCollected)\n                    {\n                        levelClear = true;\n                    }\n                }\n                \n                //game ends\n                Console.Clear();\n                \n                Console.ForegroundColor = ConsoleColor.Yellow;\n                Console.WriteLine(\"~ Congrats! You've finished the game! ~\");\n                Console.ForegroundColor = ConsoleColor.Gray;\n                Console.Write(\"\\nPress any key to play again\\nor press \");\n                Console.ForegroundColor = ConsoleColor.DarkCyan;\n                Console.Write(\" Q \");\n                Console.ForegroundColor = ConsoleColor.Gray;\n                Console.Write(\"to quit the game.\");\n                \n                //variable for next input\n                var continueInput = Console.ReadKey().Key;\n                \n                //if the player presses \"Q\" the game will close\n                if (continueInput == ConsoleKey.Q)\n                {\n                    //Environment.Exit(0);\n                    break;\n                }\n\n                //resets variables for game restart\n                levelClear = false;\n                keyCollected = false;\n                showPosition = true;\n                playerIcon = \"*\";\n                Console.CursorVisible = true;\n                \n            }\n        }\n        \n        static void DrawRoom(int x, int y)  //function to draw the room using x and y for size\n        {\n            Console.Clear();    //refreshes console each move\n\n            Console.ForegroundColor = ConsoleColor.DarkBlue;\n            \n            //algorithm \n            for (int i = 0; i < y; i++) //draw x vertical lines\n            {\n                for (int j = 0; j < x; j++) //draw y horizontal chars\n                {\n                    if (i == 0 || i == y-1) //top and bottom walls\n                    {\n                        Console.Write(\"_\");\n                    }\n\n                    else if (j == 0 || j == x-1)    //side walls\n                    {\n                        Console.Write(\"|\");\n                    }\n                    \n                    else //floor char\n                    {\n                        Console.Write(\" \");\n                    }\n                }\n                Console.Write(\"\\n\"); //line break\n            }\n        }\n\n        static bool IsAllDigits(string s)\n        {\n            foreach (char c in s)\n            {\n                if (!char.IsDigit(c))\n                    return false;\n            }\n\n            return true;\n        }\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Program.cs b/Program.cs
+--- a/Program.cs	(revision a8e3742cb7626447412c9cc850a9f24e7c3c6848)
++++ b/Program.cs	(date 1694436058111)
+@@ -137,22 +137,22 @@
+                     if (posX < 1)
+                     {
+                         posX = 1;
+-                        wallSound.Play();
++                        //wallSound.Play();
+                     }
+                     else if (posY < 1)
+                     {
+                         posY = 1;
+-                        wallSound.Play();
++                        //wallSound.Play();
+                     }
+                     else if (posY > roomY-2)
+                     {
+                         posY = roomY-2;
+-                        wallSound.Play();
++                        //wallSound.Play();
+                     }
+                     else if (posX > roomX-2)
+                     {
+                         posX = roomX-2;
+-                        wallSound.Play();
++                        //wallSound.Play();
+                     }
+                     else
+                     {
+@@ -220,7 +220,7 @@
+                         
+                         //player icon is now the key icon
+                         playerIcon = keyIcon;
+-                        keySound.Play();
++                        //keySound.Play();
+                         keyY = 0;
+                         keyX = 0;
+                     }
+Index: .idea/.idea.EscaperoomGame/.idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoGeneratedRunConfigurationManager\">\n    <projectFile>EscaperoomGame.csproj</projectFile>\n  </component>\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"ad3ea44b-a1a7-45db-b60e-c50a7360cdf0\" name=\"Changes\" comment=\"\">\n      <change beforePath=\"$PROJECT_DIR$/.idea/.idea.EscaperoomGame/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/.idea.EscaperoomGame/.idea/workspace.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/Program.cs\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Program.cs\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/bin/Debug/EscaperoomGame.exe\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/bin/Debug/EscaperoomGame.exe\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/bin/Debug/EscaperoomGame.pdb\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/bin/Debug/EscaperoomGame.pdb\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/obj/Debug/EscaperoomGame.exe\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/obj/Debug/EscaperoomGame.exe\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/obj/Debug/EscaperoomGame.pdb\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/obj/Debug/EscaperoomGame.pdb\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"ExportToHTMLSettings\">\n    <option name=\"printScope\" value=\"1\" />\n    <option name=\"OUTPUT_DIRECTORY\" value=\"$PROJECT_DIR$/exportToHTML\" />\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"GitHubPullRequestSearchHistory\">{\n  &quot;lastFilter&quot;: {\n    &quot;state&quot;: &quot;OPEN&quot;,\n    &quot;assignee&quot;: &quot;chameleon2606&quot;\n  }\n}</component>\n  <component name=\"GithubPullRequestsUISettings\">\n    <option name=\"selectedUrlAndAccountId\">\n      <UrlAndAccount>\n        <option name=\"accountId\" value=\"be1045db-f77c-45fe-9e5a-43ad4e0735c5\" />\n        <option name=\"url\" value=\"https://github.com/chameleon2606/EscaperoomGame.git\" />\n      </UrlAndAccount>\n    </option>\n  </component>\n  <component name=\"MetaFilesCheckinStateConfiguration\" checkMetaFiles=\"true\" />\n  <component name=\"ProjectColorInfo\">{\n  &quot;associatedIndex&quot;: 5\n}</component>\n  <component name=\"ProjectId\" id=\"2V1r3T3KaMTl4WrPekGybj52vXK\" />\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\n  </component>\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\">{\n  &quot;keyToString&quot;: {\n    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\n    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,\n    &quot;full.screen.before.presentation.mode&quot;: &quot;false&quot;,\n    &quot;git-widget-placeholder&quot;: &quot;master&quot;,\n    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,\n    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,\n    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,\n    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,\n    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,\n    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.customizations&quot;,\n    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;\n  },\n  &quot;keyToStringList&quot;: {\n    &quot;rider.external.source.directories&quot;: [\n      &quot;C:\\\\Users\\\\leong\\\\AppData\\\\Roaming\\\\JetBrains\\\\Rider2023.2\\\\resharper-host\\\\DecompilerCache&quot;,\n      &quot;C:\\\\Users\\\\leong\\\\AppData\\\\Roaming\\\\JetBrains\\\\Rider2023.2\\\\resharper-host\\\\SourcesCache&quot;,\n      &quot;C:\\\\Users\\\\leong\\\\AppData\\\\Local\\\\Symbols\\\\src&quot;\n    ]\n  }\n}</component>\n  <component name=\"RunManager\">\n    <configuration name=\"EscaperoomGame\" type=\"DotNetProject\" factoryName=\".NET Project\">\n      <option name=\"EXE_PATH\" value=\"\" />\n      <option name=\"PROGRAM_PARAMETERS\" value=\"\" />\n      <option name=\"WORKING_DIRECTORY\" value=\"\" />\n      <option name=\"PASS_PARENT_ENVS\" value=\"1\" />\n      <option name=\"USE_EXTERNAL_CONSOLE\" value=\"0\" />\n      <option name=\"USE_MONO\" value=\"0\" />\n      <option name=\"RUNTIME_ARGUMENTS\" value=\"\" />\n      <option name=\"PROJECT_PATH\" value=\"$PROJECT_DIR$/EscaperoomGame.csproj\" />\n      <option name=\"PROJECT_EXE_PATH_TRACKING\" value=\"1\" />\n      <option name=\"PROJECT_ARGUMENTS_TRACKING\" value=\"1\" />\n      <option name=\"PROJECT_WORKING_DIRECTORY_TRACKING\" value=\"1\" />\n      <option name=\"PROJECT_KIND\" value=\"Console\" />\n      <option name=\"PROJECT_TFM\" value=\"\" />\n      <method v=\"2\">\n        <option name=\"Build\" />\n      </method>\n    </configuration>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"ad3ea44b-a1a7-45db-b60e-c50a7360cdf0\" name=\"Changes\" comment=\"\" />\n      <created>1694014227537</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1694014227537</updated>\n      <workItem from=\"1694014228588\" duration=\"25486000\" />\n      <workItem from=\"1694086561590\" duration=\"2878000\" />\n      <workItem from=\"1694089499473\" duration=\"373000\" />\n      <workItem from=\"1694089908005\" duration=\"2176000\" />\n      <workItem from=\"1694092968618\" duration=\"12000\" />\n      <workItem from=\"1694093063367\" duration=\"569000\" />\n      <workItem from=\"1694093665224\" duration=\"3789000\" />\n      <workItem from=\"1694111558110\" duration=\"10426000\" />\n      <workItem from=\"1694178623941\" duration=\"2926000\" />\n      <workItem from=\"1694191307838\" duration=\"11432000\" />\n      <workItem from=\"1694278760586\" duration=\"1035000\" />\n      <workItem from=\"1694363425493\" duration=\"6039000\" />\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"more gameplay and added sounds\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1694124345886</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1694124345886</updated>\n    </task>\n    <task id=\"LOCAL-00002\" summary=\"restart feature and bug fixes\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1694204127545</created>\n      <option name=\"number\" value=\"00002\" />\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1694204127545</updated>\n    </task>\n    <task id=\"LOCAL-00003\" summary=\"maximum room size cap\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1694285289655</created>\n      <option name=\"number\" value=\"00003\" />\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1694285289655</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"4\" />\n    <servers />\n  </component>\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n  <component name=\"UnityCheckinConfiguration\" checkUnsavedScenes=\"true\" />\n  <component name=\"Vcs.Log.Tabs.Properties\">\n    <option name=\"TAB_STATES\">\n      <map>\n        <entry key=\"MAIN\">\n          <value>\n            <State />\n          </value>\n        </entry>\n      </map>\n    </option>\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <option name=\"ADD_EXTERNAL_FILES_SILENTLY\" value=\"true\" />\n    <option name=\"CLEAR_INITIAL_COMMIT_MESSAGE\" value=\"true\" />\n    <MESSAGE value=\"more gameplay and added sounds\" />\n    <MESSAGE value=\"restart feature and bug fixes\" />\n    <MESSAGE value=\"maximum room size cap\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"maximum room size cap\" />\n  </component>\n  <component name=\"XSLT-Support.FileAssociations.UIState\">\n    <expand />\n    <select />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/.idea.EscaperoomGame/.idea/workspace.xml b/.idea/.idea.EscaperoomGame/.idea/workspace.xml
+--- a/.idea/.idea.EscaperoomGame/.idea/workspace.xml	(revision a8e3742cb7626447412c9cc850a9f24e7c3c6848)
++++ b/.idea/.idea.EscaperoomGame/.idea/workspace.xml	(date 1694592997725)
+@@ -12,6 +12,9 @@
+       <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/bin/Debug/EscaperoomGame.exe" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/EscaperoomGame.exe" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/bin/Debug/EscaperoomGame.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/EscaperoomGame.pdb" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/obj/Debug/EscaperoomGame.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/EscaperoomGame.csproj.AssemblyReference.cache" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/obj/Debug/EscaperoomGame.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/EscaperoomGame.csproj.CoreCompileInputs.cache" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/obj/Debug/EscaperoomGame.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/EscaperoomGame.csproj.FileListAbsolute.txt" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/obj/Debug/EscaperoomGame.exe" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/EscaperoomGame.exe" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/obj/Debug/EscaperoomGame.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/EscaperoomGame.pdb" afterDir="false" />
+     </list>
+@@ -36,7 +39,7 @@
+   <component name="GithubPullRequestsUISettings">
+     <option name="selectedUrlAndAccountId">
+       <UrlAndAccount>
+-        <option name="accountId" value="be1045db-f77c-45fe-9e5a-43ad4e0735c5" />
++        <option name="accountId" value="2300ab76-80ab-4362-b725-da9092777d8d" />
+         <option name="url" value="https://github.com/chameleon2606/EscaperoomGame.git" />
+       </UrlAndAccount>
+     </option>
+@@ -53,30 +56,30 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent">{
+-  &quot;keyToString&quot;: {
+-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+-    &quot;full.screen.before.presentation.mode&quot;: &quot;false&quot;,
+-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.customizations&quot;,
+-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
++  <component name="PropertiesComponent"><![CDATA[{
++  "keyToString": {
++    "ASKED_ADD_EXTERNAL_FILES": "true",
++    "RunOnceActivity.OpenProjectViewOnStart": "true",
++    "RunOnceActivity.ShowReadmeOnStart": "true",
++    "WebServerToolWindowFactoryState": "false",
++    "full.screen.before.presentation.mode": "false",
++    "git-widget-placeholder": "master",
++    "ignore.virus.scanning.warn.message": "true",
++    "node.js.detected.package.eslint": "true",
++    "node.js.detected.package.tslint": "true",
++    "node.js.selected.package.eslint": "(autodetect)",
++    "node.js.selected.package.tslint": "(autodetect)",
++    "settings.editor.selected.configurable": "preferences.customizations",
++    "vue.rearranger.settings.migration": "true"
+   },
+-  &quot;keyToStringList&quot;: {
+-    &quot;rider.external.source.directories&quot;: [
+-      &quot;C:\\Users\\leong\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\DecompilerCache&quot;,
+-      &quot;C:\\Users\\leong\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\SourcesCache&quot;,
+-      &quot;C:\\Users\\leong\\AppData\\Local\\Symbols\\src&quot;
++  "keyToStringList": {
++    "rider.external.source.directories": [
++      "/Users/l.gerstetter/Library/Application Support/JetBrains/Rider2023.2/resharper-host/DecompilerCache",
++      "/Users/l.gerstetter/Library/Application Support/JetBrains/Rider2023.2/resharper-host/SourcesCache",
++      "/Users/l.gerstetter/.local/share/Symbols/src"
+     ]
+   }
+-}</component>
++}]]></component>
+   <component name="RunManager">
+     <configuration name="EscaperoomGame" type="DotNetProject" factoryName=".NET Project">
+       <option name="EXE_PATH" value="" />
+@@ -117,6 +120,7 @@
+       <workItem from="1694191307838" duration="11432000" />
+       <workItem from="1694278760586" duration="1035000" />
+       <workItem from="1694363425493" duration="6039000" />
++      <workItem from="1694432407537" duration="5319000" />
+     </task>
+     <task id="LOCAL-00001" summary="more gameplay and added sounds">
+       <option name="closed" value="true" />
+Index: obj/Debug/EscaperoomGame.csproj.FileListAbsolute.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>E:\\SAE\\Escaperoom\\EscaperoomGame\\bin\\Debug\\EscaperoomGame.exe\nE:\\SAE\\Escaperoom\\EscaperoomGame\\bin\\Debug\\EscaperoomGame.pdb\nE:\\SAE\\Escaperoom\\EscaperoomGame\\obj\\Debug\\EscaperoomGame.csproj.AssemblyReference.cache\nE:\\SAE\\Escaperoom\\EscaperoomGame\\obj\\Debug\\EscaperoomGame.csproj.SuggestedBindingRedirects.cache\nE:\\SAE\\Escaperoom\\EscaperoomGame\\obj\\Debug\\EscaperoomGame.csproj.CoreCompileInputs.cache\nE:\\SAE\\Escaperoom\\EscaperoomGame\\obj\\Debug\\EscaperoomGame.exe\nE:\\SAE\\Escaperoom\\EscaperoomGame\\obj\\Debug\\EscaperoomGame.pdb\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/obj/Debug/EscaperoomGame.csproj.FileListAbsolute.txt b/obj/Debug/EscaperoomGame.csproj.FileListAbsolute.txt
+--- a/obj/Debug/EscaperoomGame.csproj.FileListAbsolute.txt	(revision a8e3742cb7626447412c9cc850a9f24e7c3c6848)
++++ b/obj/Debug/EscaperoomGame.csproj.FileListAbsolute.txt	(date 1694432482994)
+@@ -1,7 +1,13 @@
+-E:\SAE\Escaperoom\EscaperoomGame\bin\Debug\EscaperoomGame.exe
+-E:\SAE\Escaperoom\EscaperoomGame\bin\Debug\EscaperoomGame.pdb
+-E:\SAE\Escaperoom\EscaperoomGame\obj\Debug\EscaperoomGame.csproj.AssemblyReference.cache
+-E:\SAE\Escaperoom\EscaperoomGame\obj\Debug\EscaperoomGame.csproj.SuggestedBindingRedirects.cache
+-E:\SAE\Escaperoom\EscaperoomGame\obj\Debug\EscaperoomGame.csproj.CoreCompileInputs.cache
+-E:\SAE\Escaperoom\EscaperoomGame\obj\Debug\EscaperoomGame.exe
+-E:\SAE\Escaperoom\EscaperoomGame\obj\Debug\EscaperoomGame.pdb
++E:/SAE/Escaperoom/EscaperoomGame/bin/Debug/EscaperoomGame.exe
++E:/SAE/Escaperoom/EscaperoomGame/bin/Debug/EscaperoomGame.pdb
++E:/SAE/Escaperoom/EscaperoomGame/obj/Debug/EscaperoomGame.csproj.AssemblyReference.cache
++E:/SAE/Escaperoom/EscaperoomGame/obj/Debug/EscaperoomGame.csproj.SuggestedBindingRedirects.cache
++E:/SAE/Escaperoom/EscaperoomGame/obj/Debug/EscaperoomGame.csproj.CoreCompileInputs.cache
++E:/SAE/Escaperoom/EscaperoomGame/obj/Debug/EscaperoomGame.exe
++E:/SAE/Escaperoom/EscaperoomGame/obj/Debug/EscaperoomGame.pdb
++/Users/l.gerstetter/EscaperoomGame/bin/Debug/EscaperoomGame.exe
++/Users/l.gerstetter/EscaperoomGame/bin/Debug/EscaperoomGame.pdb
++/Users/l.gerstetter/EscaperoomGame/obj/Debug/EscaperoomGame.csproj.AssemblyReference.cache
++/Users/l.gerstetter/EscaperoomGame/obj/Debug/EscaperoomGame.csproj.CoreCompileInputs.cache
++/Users/l.gerstetter/EscaperoomGame/obj/Debug/EscaperoomGame.exe
++/Users/l.gerstetter/EscaperoomGame/obj/Debug/EscaperoomGame.pdb

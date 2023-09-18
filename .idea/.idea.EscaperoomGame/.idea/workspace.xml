@@ -7,11 +7,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ad3ea44b-a1a7-45db-b60e-c50a7360cdf0" name="Changes" comment="more functions and methods">
+    <list default="true" id="ad3ea44b-a1a7-45db-b60e-c50a7360cdf0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.EscaperoomGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EscaperoomGame/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/EscaperoomGame.exe" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/EscaperoomGame.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/EscaperoomGame.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/EscaperoomGame.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/EscaperoomGame.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/EscaperoomGame.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/EscaperoomGame.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/EscaperoomGame.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/EscaperoomGame.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/EscaperoomGame.csproj.FileListAbsolute.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/EscaperoomGame.exe" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/EscaperoomGame.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/EscaperoomGame.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/EscaperoomGame.pdb" afterDir="false" />
     </list>
@@ -71,9 +74,9 @@
   },
   &quot;keyToStringList&quot;: {
     &quot;rider.external.source.directories&quot;: [
-      &quot;C:\\Users\\leong\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\DecompilerCache&quot;,
-      &quot;C:\\Users\\leong\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\SourcesCache&quot;,
-      &quot;C:\\Users\\leong\\AppData\\Local\\Symbols\\src&quot;
+      &quot;/Users/l.gerstetter/Library/Application Support/JetBrains/Rider2023.2/resharper-host/DecompilerCache&quot;,
+      &quot;/Users/l.gerstetter/Library/Application Support/JetBrains/Rider2023.2/resharper-host/SourcesCache&quot;,
+      &quot;/Users/l.gerstetter/.local/share/Symbols/src&quot;
     ]
   }
 }</component>
@@ -116,11 +119,11 @@
       <workItem from="1694178623941" duration="2926000" />
       <workItem from="1694191307838" duration="11432000" />
       <workItem from="1694278760586" duration="1035000" />
-      <workItem from="1694363425493" duration="6469000" />
-      <workItem from="1694376546784" duration="28000" />
-      <workItem from="1694423090053" duration="1000" />
-      <workItem from="1694466111537" duration="5110000" />
-      <workItem from="1694514106668" duration="47000" />
+      <workItem from="1694363425493" duration="6039000" />
+      <workItem from="1694692780803" duration="1508000" />
+      <workItem from="1694697942512" duration="412000" />
+      <workItem from="1694698361479" duration="2505000" />
+      <workItem from="1694778976561" duration="12707000" />
     </task>
     <task id="LOCAL-00001" summary="more gameplay and added sounds">
       <option name="closed" value="true" />
@@ -146,23 +149,7 @@
       <option name="project" value="LOCAL" />
       <updated>1694285289655</updated>
     </task>
-    <task id="LOCAL-00004" summary="performance optimization">
-      <option name="closed" value="true" />
-      <created>1694375525623</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1694375525623</updated>
-    </task>
-    <task id="LOCAL-00005" summary="more functions and methods">
-      <option name="closed" value="true" />
-      <created>1694473123376</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1694473123376</updated>
-    </task>
-    <option name="localTasksCounter" value="6" />
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -186,9 +173,7 @@
     <MESSAGE value="more gameplay and added sounds" />
     <MESSAGE value="restart feature and bug fixes" />
     <MESSAGE value="maximum room size cap" />
-    <MESSAGE value="performance optimization" />
-    <MESSAGE value="more functions and methods" />
-    <option name="LAST_COMMIT_MESSAGE" value="more functions and methods" />
+    <option name="LAST_COMMIT_MESSAGE" value="maximum room size cap" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
