@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-
+// TODO: if the size are 2 different numbers, the game crashes for some odd reason??????
 namespace EscaperoomGame
 {
     internal class Program
     {
         private static bool _keyCollected; //key counts as collected if set to true
         private static bool _showPosition; //
+        private static bool _debugMode;
 
         //room dimentions
         private static int _roomX = 10;
@@ -38,9 +39,9 @@ namespace EscaperoomGame
         
         private enum EMapTiles
         {
-            free = -1,
-            wall,
-            door
+            Free = -1,
+            Wall,
+            Door
         }
 
         private static char[] _mapTileCharacters = new char[]
@@ -81,20 +82,6 @@ namespace EscaperoomGame
                 do
                 {
                     Console.Write("\nHeight: ");
-                    roomStringX = Console.ReadLine();
-                    if (!IsAllDigits(roomStringX))
-                    {
-                        Console.WriteLine("\nInvalid number..\n");
-                    }
-                } while (!IsAllDigits(roomStringX));
-
-                //parses (converts) the height into an integer (number)
-                _roomX = int.Parse(roomStringX);
-
-                //same as height
-                do
-                {
-                    Console.Write("Width: ");
                     roomStringY = Console.ReadLine();
                     if (!IsAllDigits(roomStringY))
                     {
@@ -102,7 +89,21 @@ namespace EscaperoomGame
                     }
                 } while (!IsAllDigits(roomStringY));
 
+                //parses (converts) the height into an integer (number)
                 _roomY = int.Parse(roomStringY);
+
+                //same as height
+                do
+                {
+                    Console.Write("Width: ");
+                    roomStringX = Console.ReadLine();
+                    if (!IsAllDigits(roomStringX))
+                    {
+                        Console.WriteLine("\nInvalid number..\n");
+                    }
+                } while (!IsAllDigits(roomStringX));
+
+                _roomX = int.Parse(roomStringX);
 
 
             } while (_roomX < 5 || _roomY < 5 || _roomX > 20 || _roomY > 20);
@@ -159,6 +160,10 @@ namespace EscaperoomGame
                     case ConsoleKey.D:
                         _playerX++;
                         break;
+                    
+                    case ConsoleKey.X:
+                        _debugMode = !_debugMode;
+                        break;
                         
                     case ConsoleKey.Escape:
                         Environment.Exit(0);
@@ -168,11 +173,11 @@ namespace EscaperoomGame
                 if (_playerX >= 0 && _playerX < _roomX && _playerY >= 0 && _playerY < _roomY)
                 {
                     //only if this condition is false, the player will move normally
-                    if (_map[_playerX, _playerY] == (int)EMapTiles.wall)
+                    if (_map[_playerX, _playerY] == (int)EMapTiles.Wall)
                     {
                         ResetPlayer(prevPlayerX, prevPlayerY);
                     }
-                    else if (_map[_playerX, _playerY] == (int)EMapTiles.door) //player has key and enters the door
+                    else if (_map[_playerX, _playerY] == (int)EMapTiles.Door) //player has key and enters the door
                     {
                         if (_keyCollected)
                         {
@@ -212,15 +217,15 @@ namespace EscaperoomGame
                 {
                     if (x == _doorPosX && y == _doorPosY)
                     {
-                        _map[x, y] = (int)EMapTiles.door;
+                        _map[x, y] = (int)EMapTiles.Door;
                     }
                     if (x == 0 || y == 0 || x == _roomX - 1 || y == _roomY - 1)
                     {
-                        _map[x, y] = (int)EMapTiles.wall;
+                        _map[x, y] = (int)EMapTiles.Wall;
                     }
                     else
                     {
-                        _map[x, y] = (int)EMapTiles.free;
+                        _map[x, y] = (int)EMapTiles.Free;
                     }
                 }
             }
@@ -238,7 +243,7 @@ namespace EscaperoomGame
                 {
                     #region wall variations
 
-                    if (y == 0 && x == 0) // top left corner
+                    if (x == 0 && y == 0) // top left corner
                     {
                         Console.Write("\u250f"); // ┏
                     }
@@ -272,7 +277,7 @@ namespace EscaperoomGame
                     {
                         Console.Write("\u2501"); // ━
                     }
-                    else if (x == 0|| x == _roomX - 1) // left and right walls
+                    else if (x == 0 || x == _roomX - 1) // left and right walls
                     {
                         Console.Write("\u2503"); // ┃
                     }
@@ -307,10 +312,13 @@ namespace EscaperoomGame
                 
                 Console.WriteLine();
             }
-            
-            ShowCoordinates(_playerX, _playerY, "player");
-            ShowCoordinates(_keyPosX, _keyPosY, "key");
-            ShowCoordinates(_doorPosX, _doorPosY, "door");
+
+            if (_debugMode)
+            {
+                ShowCoordinates(_playerX, _playerY, "player");
+                ShowCoordinates(_keyPosX, _keyPosY, "key");
+                ShowCoordinates(_doorPosX, _doorPosY, "door");
+            }
             
             // shows the player- and key icon in the room in the beginning of the game
             if (_showPosition)
@@ -350,7 +358,7 @@ namespace EscaperoomGame
                     break;
             }
 
-            _map[doorX, doorY] = (int)EMapTiles.door;
+            _map[doorX, doorY] = (int)EMapTiles.Door;
             _doorPosX = doorX;
             _doorPosY = doorY;
             
@@ -429,7 +437,7 @@ namespace EscaperoomGame
             _keyCollected = true;
             _keyPosX = 0;
             _keyPosY = 0;
-            _map[_keyPosX, _keyPosY] = (int)EMapTiles.free;
+            _map[_keyPosX, _keyPosY] = (int)EMapTiles.Free;
         }
 
         private static ConsoleKey EndScreen()

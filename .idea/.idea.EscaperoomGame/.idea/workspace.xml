@@ -7,7 +7,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ad3ea44b-a1a7-45db-b60e-c50a7360cdf0" name="Changes" comment="">
+    <list default="true" id="ad3ea44b-a1a7-45db-b60e-c50a7360cdf0" name="Changes" comment="basic game working again">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.EscaperoomGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EscaperoomGame/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/EscaperoomGame.exe" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/EscaperoomGame.exe" afterDir="false" />
@@ -131,7 +131,7 @@
       <workItem from="1695384992431" duration="3555000" />
       <workItem from="1695641477912" duration="21559000" />
       <workItem from="1695902510547" duration="2880000" />
-      <workItem from="1695990044107" duration="46551000" />
+      <workItem from="1695990044107" duration="52248000" />
     </task>
     <task id="LOCAL-00001" summary="more gameplay and added sounds">
       <option name="closed" value="true" />
@@ -173,7 +173,15 @@
       <option name="project" value="LOCAL" />
       <updated>1695223193169</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="basic game working again">
+      <option name="closed" value="true" />
+      <created>1696873438849</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1696873438849</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -199,23 +207,24 @@
     <MESSAGE value="maximum room size cap" />
     <MESSAGE value="Code optimization &amp; color changes" />
     <MESSAGE value="complete refactor" />
-    <option name="LAST_COMMIT_MESSAGE" value="complete refactor" />
+    <MESSAGE value="basic game working again" />
+    <option name="LAST_COMMIT_MESSAGE" value="basic game working again" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Program.cs</url>
-          <line>461</line>
-          <properties documentPath="$PROJECT_DIR$/Program.cs" initialLine="324" containingFunctionPresentation="Method 'ResetVars'">
+          <line>64</line>
+          <properties documentPath="$PROJECT_DIR$/Program.cs" initialLine="64" containingFunctionPresentation="Method 'RoomSizeInput'">
             <startOffsets>
-              <option value="16133" />
+              <option value="1792" />
             </startOffsets>
             <endOffsets>
-              <option value="16134" />
+              <option value="1793" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="1" />
+          <option name="timeStamp" value="16" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
