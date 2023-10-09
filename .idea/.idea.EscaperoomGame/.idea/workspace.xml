@@ -8,14 +8,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ad3ea44b-a1a7-45db-b60e-c50a7360cdf0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.EscaperoomGame/.idea/shelf/Uncommitted_changes_before_Update_at_13_09_23,_10_16_[Changes]/EscaperoomGame.csproj.AssemblyReference.cache" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.EscaperoomGame/.idea/shelf/Uncommitted_changes_before_Update_at_13_09_23,_10_16_[Changes]/EscaperoomGame.csproj.CoreCompileInputs.cache" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.EscaperoomGame/.idea/shelf/Uncommitted_changes_before_Update_at_13_09_23,_10_16_[Changes]/EscaperoomGame.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.EscaperoomGame/.idea/shelf/Uncommitted_changes_before_Update_at_13_09_23,_10_16_[Changes]/EscaperoomGame.pdb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.EscaperoomGame/.idea/shelf/Uncommitted_changes_before_Update_at_13_09_23,_10_16_[Changes]/EscaperoomGame1.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.EscaperoomGame/.idea/shelf/Uncommitted_changes_before_Update_at_13_09_23,_10_16_[Changes]/EscaperoomGame1.pdb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.EscaperoomGame/.idea/shelf/Uncommitted_changes_before_Update_at_13_09_23,_10_16_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.EscaperoomGame/.idea/shelf/Uncommitted_changes_before_Update_at_13_09_23__10_16__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.EscaperoomGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EscaperoomGame/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/EscaperoomGame.exe" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/EscaperoomGame.exe" afterDir="false" />
@@ -51,6 +43,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="mock:///Users/l.gerstetter/EscaperoomGame/Program.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/abed76c04c814dd3a5a2ffcccb9d3129e800/0d/08baa6cb/Action.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
@@ -64,30 +57,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;full.screen.before.presentation.mode&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.customizations&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "full.screen.before.presentation.mode": "false",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;rider.external.source.directories&quot;: [
-      &quot;/Users/l.gerstetter/Library/Application Support/JetBrains/Rider2023.2/resharper-host/DecompilerCache&quot;,
-      &quot;/Users/l.gerstetter/Library/Application Support/JetBrains/Rider2023.2/resharper-host/SourcesCache&quot;,
-      &quot;/Users/l.gerstetter/.local/share/Symbols/src&quot;
+  "keyToStringList": {
+    "rider.external.source.directories": [
+      "/Users/l.gerstetter/Library/Application Support/JetBrains/Rider2023.2/resharper-host/DecompilerCache",
+      "/Users/l.gerstetter/Library/Application Support/JetBrains/Rider2023.2/resharper-host/SourcesCache",
+      "/Users/l.gerstetter/.local/share/Symbols/src"
     ]
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="EscaperoomGame" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />
@@ -134,7 +127,11 @@
       <workItem from="1694778976561" duration="13495000" />
       <workItem from="1695049476799" duration="7000" />
       <workItem from="1695049604535" duration="7491000" />
-      <workItem from="1695198560811" duration="21431000" />
+      <workItem from="1695198560811" duration="32380000" />
+      <workItem from="1695384992431" duration="3555000" />
+      <workItem from="1695641477912" duration="21559000" />
+      <workItem from="1695902510547" duration="2880000" />
+      <workItem from="1695990044107" duration="46551000" />
     </task>
     <task id="LOCAL-00001" summary="more gameplay and added sounds">
       <option name="closed" value="true" />
@@ -168,7 +165,15 @@
       <option name="project" value="LOCAL" />
       <updated>1695049260146</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="complete refactor">
+      <option name="closed" value="true" />
+      <created>1695223193169</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1695223193169</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -193,7 +198,27 @@
     <MESSAGE value="restart feature and bug fixes" />
     <MESSAGE value="maximum room size cap" />
     <MESSAGE value="Code optimization &amp; color changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Code optimization &amp; color changes" />
+    <MESSAGE value="complete refactor" />
+    <option name="LAST_COMMIT_MESSAGE" value="complete refactor" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Program.cs</url>
+          <line>461</line>
+          <properties documentPath="$PROJECT_DIR$/Program.cs" initialLine="324" containingFunctionPresentation="Method 'ResetVars'">
+            <startOffsets>
+              <option value="16133" />
+            </startOffsets>
+            <endOffsets>
+              <option value="16134" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
