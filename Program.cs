@@ -113,8 +113,6 @@ namespace EscaperoomGame
         //function to draw the room using x and y for size
         private static void GameplayLoop()
         {
-            Console.Clear();
-            
             RoomSizeInput();
             
             //creates map array with the size _roomX and _roomY
@@ -133,78 +131,14 @@ namespace EscaperoomGame
                 //draws map
                 PrintMap();
 
+                //previous player position
                 int prevPlayerX = _playerX;
                 int prevPlayerY = _playerY;
 
                 //user controls
-                ConsoleKeyInfo keyInput = Console.ReadKey(true);
-                switch (keyInput.Key)
-                {
-                    case ConsoleKey.UpArrow:
-                    case ConsoleKey.W:
-                        _playerY--;
-                        break;
-                    
-                    case ConsoleKey.DownArrow:
-                    case ConsoleKey.S:
-                        _playerY++;
-                        break;
-                    
-                    case ConsoleKey.LeftArrow:
-                    case ConsoleKey.A:
-                        _playerX--;
-                        break;
-                    
-                    case ConsoleKey.RightArrow:
-                    case ConsoleKey.D:
-                        _playerX++;
-                        break;
-                    
-                    case ConsoleKey.X:
-                        _debugMode = !_debugMode;
-                        break;
-                        
-                    case ConsoleKey.Escape:
-                        Environment.Exit(0);
-                        break;
-                }
+                PlayerControls();
 
-                if (_playerX >= 0 && _playerX < _roomX && _playerY >= 0 && _playerY < _roomY)
-                {
-                    //only if this condition is false, the player will move normally
-                    if (_map[_playerX, _playerY] == (int)EMapTiles.Wall)
-                    {
-                        ResetPlayer(prevPlayerX, prevPlayerY);
-                    }
-                    else if (_map[_playerX, _playerY] == (int)EMapTiles.Door) //player has key and enters the door
-                    {
-                        if (_keyCollected)
-                        {
-                            if (EndScreen() == ConsoleKey.Q) //player quits the game if Q is pressed
-                            {
-                                Environment.Exit(0);
-                            }
-                            else //game will restart
-                            {
-                                ResetVars();
-                                GameplayLoop();
-                            }
-                        }
-                        else
-                        {
-                            ResetPlayer(prevPlayerX, prevPlayerY);
-                        }
-                    }
-
-                    if (_playerX == _keyPosX && _playerY == _keyPosY) //player is on the key position
-                    {
-                        CollectKey();
-                    }
-                }
-                else // out of bounds
-                {
-                    ResetPlayer(prevPlayerX, prevPlayerY);
-                }
+                ProcessMovement(ref prevPlayerX, ref prevPlayerY);
             }
         }
 
@@ -229,7 +163,7 @@ namespace EscaperoomGame
                 }
             }
             
-            PlacePlayerAndKeys();
+            RandomElements();
         }
 
         private static void PrintMap()
@@ -244,19 +178,19 @@ namespace EscaperoomGame
 
                     if (x == 0 && y == 0) // top left corner
                     {
-                        Console.Write("\u250f"); // ┏
+                        Console.Write("\u250c"); // ┌
                     }
                     else if (y == 0 && x == _roomX - 1) // top right corner
                     {
-                        Console.Write("\u2513"); // ┓
+                        Console.Write("\u2510"); // ┐
                     }
                     else if (y == _roomY - 1 && x == 0) // bottom left corner
                     {
-                        Console.Write("\u2517"); // ┗
+                        Console.Write("\u2514"); // └
                     }
                     else if (y == _roomY - 1 && x == _roomX - 1) // bottom right corner
                     {
-                        Console.Write("\u251b"); // ┛
+                        Console.Write("\u2518"); // ┘
                     }
                     else if (x == _doorPosX && y == _doorPosY) // door
                     {
@@ -274,11 +208,11 @@ namespace EscaperoomGame
                     }
                     else if(y == _roomY - 1 || y == 0) // top and bottom walls
                     {
-                        Console.Write("\u2501"); // ━
+                        Console.Write("\u2500"); // ─
                     }
                     else if (x == 0 || x == _roomX - 1) // left and right walls
                     {
-                        Console.Write("\u2503"); // ┃
+                        Console.Write("\u2502"); // │
                     }
                     
                     #endregion
@@ -300,7 +234,7 @@ namespace EscaperoomGame
 
                     if (y == 0 && x != _roomX - 1 || y == _roomY - 1 && x != _roomX - 1) //top/bottom wall draws 2 dashes
                     {
-                        Console.Write('\u2501'); // ━
+                        Console.Write('\u2500'); // ─
                     }
                     else
                     {
@@ -327,49 +261,132 @@ namespace EscaperoomGame
             }
         }
         
-        private static void PlacePlayerAndKeys()
+        private static void RandomElements()
         {
+            //places key, player and door randomly
+            
+            //random door location
+            //1 top wall, 2 right wall, 3 bottom wall, 4 left wall
             int doorSide = Rnd.Next(1, 4);
             int doorX = 0;
             int doorY = 0;
             
+            //could maybe be optimized, but it works ㄟ( ▔, ▔ )ㄏ
             switch (doorSide)
             {
                 case 1:
                     doorX = Rnd.Next(1, _roomX - 2);
                     doorY = 0;
-                    _doorIcon = "\u2505"; // ┅
+                    _doorIcon = "\u2550"; // ═
                     break;
                 case 2:
                     doorX = _roomX - 1;
                     doorY = Rnd.Next(1, _roomY - 2);
-                    _doorIcon = "\u2506"; // ┆
+                    _doorIcon = "\u2551"; // ║
                     break;
                 case 3:
                     doorX = Rnd.Next(1, _roomX - 2);
                     doorY = _roomY - 1;
-                    _doorIcon = "\u2505"; // ┅
+                    _doorIcon = "\u2550"; // ═
                     break;
                 case 4:
                     doorX = 0;
                     doorY = Rnd.Next(1, _roomY - 2);
-                    _doorIcon = "\u2506"; // ┆
+                    _doorIcon = "\u2551"; // ║
                     break;
             }
 
+            //puts door coords in the map array
             _map[doorX, doorY] = (int)EMapTiles.Door;
             _doorPosX = doorX;
             _doorPosY = doorY;
             
-            // randomly places the player and the key
+            // randomly places the key
             _keyPosX = Rnd.Next(1, _roomX - 1);
             _keyPosY = Rnd.Next(1, _roomY - 1);
 
+            //randomly places the player on a different x position than the key, so the start text doesn't overlap
             _playerX = Rnd.Next(1, _roomX-1);
             do
             {
                 _playerY = Rnd.Next(1, _roomY - 1);
             } while (_playerY == _keyPosY);
+        }
+
+        private static void PlayerControls()
+        {
+            ConsoleKeyInfo keyInput = Console.ReadKey(true);
+            switch (keyInput.Key)
+            {
+                case ConsoleKey.UpArrow:
+                case ConsoleKey.W:
+                    _playerY--;
+                    break;
+                    
+                case ConsoleKey.DownArrow:
+                case ConsoleKey.S:
+                    _playerY++;
+                    break;
+                    
+                case ConsoleKey.LeftArrow:
+                case ConsoleKey.A:
+                    _playerX--;
+                    break;
+                    
+                case ConsoleKey.RightArrow:
+                case ConsoleKey.D:
+                    _playerX++;
+                    break;
+                    
+                case ConsoleKey.X:
+                    _debugMode = !_debugMode;
+                    break;
+                        
+                case ConsoleKey.Escape:
+                    Environment.Exit(0);
+                    break;
+            }
+        }
+
+        private static void ProcessMovement(ref int prevPlayerX, ref int prevPlayerY)
+        {
+            if (_playerX >= 0 && _playerX < _roomX && _playerY >= 0 && _playerY < _roomY)
+            {
+                //only if this condition is false, the player will move normally
+                if (_map[_playerX, _playerY] == (int)EMapTiles.Wall)
+                {
+                    ResetPlayer(prevPlayerX, prevPlayerY);
+                    Console.Beep(150,10);
+                }
+                else if (_map[_playerX, _playerY] == (int)EMapTiles.Door) //player has key and enters the door
+                {
+                    if (_keyCollected)
+                    {
+                        if (EndScreen() == ConsoleKey.Q) //player quits the game if Q is pressed
+                        {
+                            Environment.Exit(0);
+                        }
+                        else //game will restart
+                        {
+                            ResetVars();
+                            GameplayLoop();
+                        }
+                    }
+                    else
+                    {
+                        ResetPlayer(prevPlayerX, prevPlayerY);
+                    }
+                }
+
+                if (_playerX == _keyPosX && _playerY == _keyPosY) //player is on the key position
+                {
+                    CollectKey();
+                }
+            }
+            else // out of bounds
+            {
+                ResetPlayer(prevPlayerX, prevPlayerY);
+            }
         }
 
         private static void ResetPlayer(int prevPlayerX, int prevPlayerY)
@@ -399,6 +416,7 @@ namespace EscaperoomGame
 
         private static void ShowCoordinates(int posX, int posY, string item)
         {
+            //shows grey text of where the important items are
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.WriteLine($"\n{item} at X: {posX}, Y: {posY}"); 
             ResetTextColor();
@@ -407,8 +425,6 @@ namespace EscaperoomGame
         private static void IntroText()
         {
             Console.Clear();
-            //string introText = "\u2554\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2557\n\u2551 \t\t\t    \u2551\n\u255f welcome to my escaperoom! \u2562\n\u2551\t\t\t    \u2551\n\u2551\t\t\t    \u2551\n\u255f   The rules are simple:   \u2562\n\u2551\t\t\t    \u2551\n\u255f   Find the key and go     \u2562\n\u2551   through the door.       \u2551\n\u2551\t\t\t    \u2551\n\u255f Move your character with  \u2562\n\u2551\t  W A S D\t    \u2551\n\u2551\t\t\t    \u2551\n\u255a\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u255d";
-            //Console.Write(introText);
             
             ResetTextColor();
             Console.Write("~ Welcome to my escape room! ~\n\nThe rules are simple:\nFind the");
@@ -437,6 +453,10 @@ namespace EscaperoomGame
             _keyPosX = 0;
             _keyPosY = 0;
             _map[_keyPosX, _keyPosY] = (int)EMapTiles.Free;
+            
+            //sounds plays when picking up the key
+            Console.Beep(1900, 25);
+            Console.Beep(1900, 275);
         }
 
         private static ConsoleKey EndScreen()
@@ -446,6 +466,11 @@ namespace EscaperoomGame
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("~ Congrats! You've finished the game! ~");
             
+            Console.Beep(293, 200);
+            Console.Beep(369, 200);
+            Console.Beep(440, 200);
+            Console.Beep(587, 600);
+            
             ResetTextColor();
             Console.Write("\nPress any key to play again\nor press ");
             
@@ -454,6 +479,8 @@ namespace EscaperoomGame
             
             ResetTextColor();
             Console.Write("to quit the game.");
+            
+            
             
             //variable for next input
             var continueInput = Console.ReadKey(true).Key;

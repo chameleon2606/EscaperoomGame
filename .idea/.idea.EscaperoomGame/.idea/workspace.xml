@@ -12,6 +12,9 @@
       <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/EscaperoomGame.exe" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/EscaperoomGame.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/EscaperoomGame.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/EscaperoomGame.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/EscaperoomGame.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/EscaperoomGame.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/EscaperoomGame.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/EscaperoomGame.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/EscaperoomGame.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/EscaperoomGame.csproj.FileListAbsolute.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/EscaperoomGame.exe" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/EscaperoomGame.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/EscaperoomGame.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/EscaperoomGame.pdb" afterDir="false" />
     </list>
@@ -42,10 +45,9 @@
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/abed76c04c814dd3a5a2ffcccb9d3129e800/0d/08baa6cb/Action.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/1361fc20bc2dd69b984f9d3e1a1c874e470652317f1059fa5e5b27ecd59aa/StreamReader.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/8d79789edcd408f588672833896383657d3423cd740459abb9ee282e8a01b/MonoIO.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/d742fadf312a6956ae70b2fc83f1603758a36d9e20cf21b84087c67de81b304b/FileStream.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://E:/SAE/Escaperoom/EscaperoomGame/Program.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://diff.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://diff.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
@@ -72,7 +74,7 @@
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.customizations&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -129,12 +131,7 @@
       <workItem from="1694778976561" duration="13495000" />
       <workItem from="1695049476799" duration="7000" />
       <workItem from="1695049604535" duration="7491000" />
-      <workItem from="1695198560811" duration="32380000" />
-      <workItem from="1695384992431" duration="3555000" />
-      <workItem from="1695641477912" duration="21559000" />
-      <workItem from="1695902510547" duration="2880000" />
-      <workItem from="1695990044107" duration="52883000" />
-      <workItem from="1696944860795" duration="5038000" />
+      <workItem from="1695198560811" duration="21431000" />
     </task>
     <task id="LOCAL-00001" summary="more gameplay and added sounds">
       <option name="closed" value="true" />
@@ -168,31 +165,7 @@
       <option name="project" value="LOCAL" />
       <updated>1695049260146</updated>
     </task>
-    <task id="LOCAL-00005" summary="complete refactor">
-      <option name="closed" value="true" />
-      <created>1695223193169</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1695223193169</updated>
-    </task>
-    <task id="LOCAL-00006" summary="basic game working again">
-      <option name="closed" value="true" />
-      <created>1696873438849</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1696873438849</updated>
-    </task>
-    <task id="LOCAL-00007" summary="width, height switched">
-      <option name="closed" value="true" />
-      <created>1696878628849</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1696878628849</updated>
-    </task>
-    <option name="localTasksCounter" value="8" />
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -217,10 +190,7 @@
     <MESSAGE value="restart feature and bug fixes" />
     <MESSAGE value="maximum room size cap" />
     <MESSAGE value="Code optimization &amp; color changes" />
-    <MESSAGE value="complete refactor" />
-    <MESSAGE value="basic game working again" />
-    <MESSAGE value="width, height switched" />
-    <option name="LAST_COMMIT_MESSAGE" value="width, height switched" />
+    <option name="LAST_COMMIT_MESSAGE" value="Code optimization &amp; color changes" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
