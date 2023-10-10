@@ -7,14 +7,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ad3ea44b-a1a7-45db-b60e-c50a7360cdf0" name="Changes" comment="">
+    <list default="true" id="ad3ea44b-a1a7-45db-b60e-c50a7360cdf0" name="Changes" comment="added sounds back">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.EscaperoomGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EscaperoomGame/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/EscaperoomGame.exe" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/EscaperoomGame.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/EscaperoomGame.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/EscaperoomGame.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/EscaperoomGame.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/EscaperoomGame.csproj.AssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/EscaperoomGame.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/EscaperoomGame.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/EscaperoomGame.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/EscaperoomGame.csproj.FileListAbsolute.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/EscaperoomGame.exe" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/EscaperoomGame.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/EscaperoomGame.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/EscaperoomGame.pdb" afterDir="false" />
     </list>
@@ -165,7 +162,15 @@
       <option name="project" value="LOCAL" />
       <updated>1695049260146</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="added sounds back">
+      <option name="closed" value="true" />
+      <created>1696968535031</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1696968535031</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -190,7 +195,8 @@
     <MESSAGE value="restart feature and bug fixes" />
     <MESSAGE value="maximum room size cap" />
     <MESSAGE value="Code optimization &amp; color changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Code optimization &amp; color changes" />
+    <MESSAGE value="added sounds back" />
+    <option name="LAST_COMMIT_MESSAGE" value="added sounds back" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

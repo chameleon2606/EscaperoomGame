@@ -6,7 +6,7 @@ namespace EscaperoomGame
     internal class Program
     {
         private static bool _keyCollected; //key counts as collected if set to true
-        private static bool _showPosition; //
+        private static bool _showPosition; 
         private static bool _debugMode;
 
         //room dimentions
@@ -30,7 +30,7 @@ namespace EscaperoomGame
         private static int _doorPosY;
 
         //object icons
-        private static string _playerIcon = "*";
+        private static string _playerIcon = "^";
         private static string _doorIcon = "\u2506";   // ┆
 
         //array
@@ -110,9 +110,10 @@ namespace EscaperoomGame
             } while (_roomX < 5 || _roomY < 5 || _roomX > 20 || _roomY > 20);
         }
         
-        //function to draw the room using x and y for size
         private static void GameplayLoop()
         {
+            //function to draw the room using x and y for size
+            
             RoomSizeInput();
             
             //creates map array with the size _roomX and _roomY
@@ -219,7 +220,7 @@ namespace EscaperoomGame
                     
                     else if (x == _keyPosX && y == _keyPosY)
                     {
-                        Console.Write("K");
+                        Console.Write("ƫ"); // ƫ
                     }
                     else if (x == _playerX && y == _playerY) // draws player
                     {
@@ -321,21 +322,25 @@ namespace EscaperoomGame
                 case ConsoleKey.UpArrow:
                 case ConsoleKey.W:
                     _playerY--;
+                    _playerIcon = "^";
                     break;
                     
                 case ConsoleKey.DownArrow:
                 case ConsoleKey.S:
                     _playerY++;
+                    _playerIcon = "V";
                     break;
                     
                 case ConsoleKey.LeftArrow:
                 case ConsoleKey.A:
                     _playerX--;
+                    _playerIcon = "<";
                     break;
                     
                 case ConsoleKey.RightArrow:
                 case ConsoleKey.D:
                     _playerX++;
+                    _playerIcon = ">";
                     break;
                     
                 case ConsoleKey.X:
@@ -479,8 +484,6 @@ namespace EscaperoomGame
             
             ResetTextColor();
             Console.Write("to quit the game.");
-            
-            
             
             //variable for next input
             var continueInput = Console.ReadKey(true).Key;
