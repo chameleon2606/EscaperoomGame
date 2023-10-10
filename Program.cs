@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-// TODO: if the size are 2 different numbers, the game crashes for some odd reason??????
+
 namespace EscaperoomGame
 {
     internal class Program
@@ -48,7 +48,7 @@ namespace EscaperoomGame
         {
             ' ',
             '\u2503', // ┃
-            '\u2506' // ┆
+            ' ' // door
         };
 
         public static void Main(string[] args)
@@ -87,10 +87,11 @@ namespace EscaperoomGame
                     {
                         Console.WriteLine("\nInvalid number..\n");
                     }
-                } while (!IsAllDigits(roomStringY));
-
+                } while (!int.TryParse(roomStringY, out _roomY));
+                
                 //parses (converts) the height into an integer (number)
-                _roomY = int.Parse(roomStringY);
+                //_roomY = int.Parse(roomStringY);
+                
 
                 //same as height
                 do
@@ -101,9 +102,9 @@ namespace EscaperoomGame
                     {
                         Console.WriteLine("\nInvalid number..\n");
                     }
-                } while (!IsAllDigits(roomStringX));
+                } while (!int.TryParse(roomStringX, out _roomX));
 
-                _roomX = int.Parse(roomStringX);
+                //_roomX = int.Parse(roomStringX);
 
 
             } while (_roomX < 5 || _roomY < 5 || _roomX > 20 || _roomY > 20);
@@ -125,8 +126,6 @@ namespace EscaperoomGame
             //algorithm to fill the map array
             FillMapLogic();
             
-            //PlacePlayerAndKeys();
-            
             while(true)
             {
                 Console.Clear();
@@ -138,7 +137,7 @@ namespace EscaperoomGame
                 int prevPlayerY = _playerY;
 
                 //user controls
-                ConsoleKeyInfo keyInput = Console.ReadKey();
+                ConsoleKeyInfo keyInput = Console.ReadKey(true);
                 switch (keyInput.Key)
                 {
                     case ConsoleKey.UpArrow:
@@ -219,7 +218,7 @@ namespace EscaperoomGame
                     {
                         _map[x, y] = (int)EMapTiles.Door;
                     }
-                    if (x == 0 || y == 0 || x == _roomX - 1 || y == _roomY - 1)
+                    else if (x == 0 || y == 0 || x == _roomX - 1 || y == _roomY - 1)
                     {
                         _map[x, y] = (int)EMapTiles.Wall;
                     }
@@ -237,9 +236,9 @@ namespace EscaperoomGame
         {
             Console.ForegroundColor = ConsoleColor.White;
             
-            for (int y = 0; y < _roomX; y++)
+            for (int y = 0; y < _roomY; y++)
             {
-                for (int x = 0; x < _roomY; x++)
+                for (int x = 0; x < _roomX; x++)
                 {
                     #region wall variations
 
@@ -299,9 +298,9 @@ namespace EscaperoomGame
                         Console.Write(_mapTileCharacters[_map[x, y] + 1]);
                     }
 
-                    if (y == 0 && x != _roomX - 1 || y == _roomY - 1 && x != _roomX - 1)
+                    if (y == 0 && x != _roomX - 1 || y == _roomY - 1 && x != _roomX - 1) //top/bottom wall draws 2 dashes
                     {
-                        Console.Write('\u2501');
+                        Console.Write('\u2501'); // ━
                     }
                     else
                     {
@@ -367,10 +366,10 @@ namespace EscaperoomGame
             _keyPosY = Rnd.Next(1, _roomY - 1);
 
             _playerX = Rnd.Next(1, _roomX-1);
-            while (_playerY == _keyPosY)
+            do
             {
-                _playerY = Rnd.Next(1, _roomY-1);
-            }
+                _playerY = Rnd.Next(1, _roomY - 1);
+            } while (_playerY == _keyPosY);
         }
 
         private static void ResetPlayer(int prevPlayerX, int prevPlayerY)
