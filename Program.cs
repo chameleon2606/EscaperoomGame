@@ -9,15 +9,15 @@ namespace EscaperoomGame
         private static bool _showPosition;
         private static bool _debugMode;
 
-        //room dimentions
+        //room dimensions
         private static int _roomX = 10;
         private static int _roomY = 10;
 
-        // minimum and maximum room dimentions
-        private const int RoomMinWidth = 5;
-        private const int RoomMinHeight = 5;
-        private const int RoomMaxWidth = 20;
-        private const int RoomMaxHeight = 20;
+        // minimum and maximum room dimensions
+        private const int RoomMinWidth = 10;
+        private const int RoomMinHeight = 10;
+        private const int RoomMaxWidth = 30;
+        private const int RoomMaxHeight = 30;
 
         // player coordinates
         private static int _playerX = 2, _playerY = 2;
@@ -40,13 +40,14 @@ namespace EscaperoomGame
         //array
         private static int[,] _map;
         private static readonly Random Rnd = new Random();
-
+        
         private enum EMapTiles
         {
             Free = -1,
             Wall,
             Door,
-            Enemy
+            Enemy,
+            Forbidden
         }
 
         private static char[] _mapTileCharacters = new char[]
@@ -60,68 +61,21 @@ namespace EscaperoomGame
         public static void Main(string[] args)
         {
             // shows text where the items are
+            
             _showPosition = true;
 
             IntroText();
-
+            
             GameplayLoop();
-        }
-
-        private static void RoomSizeInput()
-        {
-            do
-            {
-                var roomStringX = "";
-                var roomStringY = "";
-
-                //tells the player if the room is too small by checking the size
-                if (_roomX < RoomMinWidth || _roomY < RoomMinHeight)
-                {
-                    Console.WriteLine("The room is too small..");
-                }
-                else if (_roomX > RoomMaxWidth || _roomY > RoomMaxHeight)
-                {
-                    Console.WriteLine("The room is too big..");
-                }
-
-                //player input for Height
-                do
-                {
-                    Console.Write("\nHeight: ");
-                    roomStringY = Console.ReadLine();
-                    if (!IsAllDigits(roomStringY))
-                    {
-                        Console.WriteLine("\nInvalid number..\n");
-                    }
-                } while
-                    (!int.TryParse(roomStringY, out _roomY)); //parses (converts) the height into an integer (number)
-
-
-                //player input for Width
-                do
-                {
-                    Console.Write("Width: ");
-                    roomStringX = Console.ReadLine();
-                    if (!IsAllDigits(roomStringX))
-                    {
-                        Console.WriteLine("\nInvalid number..\n");
-                    }
-                } while (!int.TryParse(roomStringX, out _roomX));
-
-            } while (_roomX < 5 || _roomY < 5 || _roomX > 20 || _roomY > 20);
         }
 
         private static void GameplayLoop()
         {
-            //function to draw the room using x and y for size
-
-            RoomSizeInput();
+            //user declares the size of the room
+            DynamicRoomSizeInput();
 
             //creates map array with the size _roomX and _roomY
             _map = new int[_roomX, _roomY];
-
-            //hides the blinking cursor
-            Console.CursorVisible = false;
 
             //algorithm to fill the map array
             FillMapLogic();
@@ -147,6 +101,114 @@ namespace EscaperoomGame
 
                 ProcessMovement(ref prevPlayerX, ref prevPlayerY);
             }
+        }
+
+        private static void DynamicRoomSizeInput()
+        {
+            Console.CursorVisible = false;
+            bool inputting = true;
+            do
+            {
+                PrintRawMap();
+
+                ConsoleKeyInfo keyInput = Console.ReadKey(true);
+                switch (keyInput.Key)
+                {
+                    case ConsoleKey.UpArrow:
+                        if (_roomY > RoomMinHeight)
+                        {
+                            _roomY--;
+                        }
+                        break;
+                    case ConsoleKey.DownArrow:
+                        if (_roomY < RoomMaxHeight)
+                        {
+                            _roomY++;
+                        }
+                        break;
+                    case ConsoleKey.LeftArrow:
+                        if (_roomX > RoomMinWidth)
+                        {
+                            _roomX--;
+                        }
+                        break;
+                    case ConsoleKey.RightArrow:
+                        if (_roomX < RoomMaxWidth)
+                        {
+                            _roomX++;
+                        }
+                        break;
+                    case ConsoleKey.Enter:
+                        inputting = false;
+                        break;
+                }
+            } while (inputting);
+        }
+
+        private static void PrintRawMap()
+        {
+            Console.Clear();
+            Console.Write("Press the ");
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.Write("arrow keys");
+            Console.ResetColor();
+            Console.Write(" arrow keys to adjust the size of the room\n");
+
+            Console.ResetColor();
+            for (int y = 0; y < _roomY; y++)
+            {
+                for (int x = 0; x < _roomX; x++)
+                {
+                    #region wall variations
+
+                    if (x == 0 && y == 0) // top left corner
+                    {
+                        Console.Write("\u250c"); // ┌
+                    }
+                    else if (y == 0 && x == _roomX - 1) // top right corner
+                    {
+                        Console.Write("\u2510"); // ┐
+                    }
+                    else if (y == _roomY - 1 && x == 0) // bottom left corner
+                    {
+                        Console.Write("\u2514"); // └
+                    }
+                    else if (y == _roomY - 1 && x == _roomX - 1) // bottom right corner
+                    {
+                        Console.Write("\u2518"); // ┘
+                    }
+                    else if (y == _roomY - 1 || y == 0) // top and bottom walls
+                    {
+                        Console.Write("\u2500"); // ─
+                    }
+                    else if (x == 0 || x == _roomX - 1) // left and right walls
+                    {
+                        Console.Write("\u2502"); // │
+                    }
+
+                    #endregion
+
+                    else // draws the rest of the enum, like free spaces
+                    {
+                        Console.Write(' ');
+                        Console.ResetColor();
+                    }
+
+                    if (y == 0 && x != _roomX - 1 ||
+                        y == _roomY - 1 && x != _roomX - 1) //top/bottom wall draws 2 dashes
+                    {
+                        Console.Write('\u2500'); // ─
+                    }
+                    else
+                    {
+                        Console.Write(' '); // space after every character
+                    }
+
+                }
+
+                Console.WriteLine();
+            }
+            Console.WriteLine("Press enter to play");
         }
 
         private static void FillMapLogic()
@@ -295,21 +357,29 @@ namespace EscaperoomGame
                     doorX = Rnd.Next(1, _roomX - 2);
                     doorY = 0;
                     _doorIcon = "\u2550"; // ═
+
+                    _map[doorX, 1] = (int)EMapTiles.Forbidden;
                     break;
                 case 2:
                     doorX = _roomX - 1;
                     doorY = Rnd.Next(1, _roomY - 2);
                     _doorIcon = "\u2551"; // ║
+
+                    _map[doorX - 1, doorY] = (int)EMapTiles.Forbidden;
                     break;
                 case 3:
                     doorX = Rnd.Next(1, _roomX - 2);
                     doorY = _roomY - 1;
                     _doorIcon = "\u2550"; // ═
+
+                    _map[doorX, doorY - 1] = (int)EMapTiles.Forbidden;
                     break;
                 case 4:
                     doorX = 0;
                     doorY = Rnd.Next(1, _roomY - 2);
                     _doorIcon = "\u2551"; // ║
+
+                    _map[1, doorY] = (int)EMapTiles.Forbidden;
                     break;
             }
 
@@ -319,21 +389,33 @@ namespace EscaperoomGame
             _doorPosY = doorY;
 
             // randomly places the key
-            _keyPosX = Rnd.Next(1, _roomX - 1);
-            _keyPosY = Rnd.Next(1, _roomY - 1);
+            do
+            {
+                _keyPosX = Rnd.Next(1, _roomX - 1);
+                _keyPosY = Rnd.Next(1, _roomY - 1);
+            } while (_map[_keyPosX,_keyPosY] == (int)EMapTiles.Forbidden);
+            
 
             //randomly places the player on a different x position than the key, so the start text doesn't overlap
-            _playerX = Rnd.Next(1, _roomX - 1);
             do
             {
-                _playerY = Rnd.Next(1, _roomY - 1);
-            } while (_playerY == _keyPosY);
+                _playerX = Rnd.Next(1, _roomX - 1);
+                do
+                {
+                    _playerY = Rnd.Next(1, _roomY - 1);
+                } while (_playerY == _keyPosY);
+            } while (_map[_keyPosX,_keyPosY] == (int)EMapTiles.Forbidden);
+            
 
-            _enemyX = Rnd.Next(1, _roomX - 1);
+            //places the enemy at a random position
             do
             {
-                _enemyY = Rnd.Next(1, _roomY - 1);
-            } while (_enemyY == _playerY || _enemyY == _keyPosY);
+                _enemyX = Rnd.Next(1, _roomX - 1);
+                do
+                {
+                    _enemyY = Rnd.Next(1, _roomY - 1);
+                } while (_enemyY == _playerY || _enemyY == _keyPosY);
+            } while (_map[_playerX, _playerY] == (int)EMapTiles.Forbidden);
         }
 
         private static void PlayerControls()
@@ -394,7 +476,6 @@ namespace EscaperoomGame
                     if (_keyCollected)
                     {
                         EndScreen(true); // player won
-                        //LevelTransition();
                     }
                     else
                     {
@@ -426,55 +507,48 @@ namespace EscaperoomGame
             Console.Write($"<-- {item}");
             _showPosition = false;
         }
-
-        private static bool IsAllDigits(string s)
-        {
-            foreach (char c in s)
-            {
-                if (!char.IsDigit(c))
-                    return false;
-            }
-
-            return true;
-        }
-
+        
         private static void ShowCoordinates(int posX, int posY, string item)
         {
             //shows grey text of where the important items are
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.WriteLine($"\n{item} at X: {posX}, Y: {posY}");
-            ResetTextColor();
+            Console.ResetColor();
         }
 
         private static void IntroText()
         {
             Console.Clear();
 
-            ResetTextColor();
+            Console.ResetColor();
             Console.Write("~ Welcome to my escape room! ~\n\nThe rules are simple:\nFind the");
 
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Write(" key ");
 
-            ResetTextColor();
+            Console.ResetColor();
             Console.Write("and go through the door.\nBut avoid the ");
 
             Console.ForegroundColor = ConsoleColor.Red;
             Console.Write("red trail");
 
-            ResetTextColor();
+            Console.ResetColor();
             Console.Write(" that follows you!\n\nMove your character with");
 
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.Write(" W, A, S and D");
 
-            ResetTextColor();
+            Console.ResetColor();
             Console.Write(" or the ");
 
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.Write("arrow keys");
 
-            ResetTextColor();
+            Console.ResetColor();
+            Console.WriteLine("\n\nPress any key to continue with the room size input..");
+            Console.ReadKey();
+
+            Console.ResetColor();
         }
 
         private static void CollectKey()
@@ -507,18 +581,18 @@ namespace EscaperoomGame
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Game Over!");
-                ResetTextColor();
+                Console.ResetColor();
 
                 Console.WriteLine("You died because the enemy caught you!");
             }
 
-            ResetTextColor();
+            Console.ResetColor();
             Console.Write("\nPress any key to play again\nor press ");
 
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.Write(" Q ");
 
-            ResetTextColor();
+            Console.ResetColor();
             Console.Write("to quit the game.");
 
             //variable for next input
@@ -535,124 +609,15 @@ namespace EscaperoomGame
             }
         }
 
-        private static void ResetTextColor()
-        {
-            Console.ForegroundColor = ConsoleColor.White;
-        }
-
         private static void ResetVars()
         {
             _keyCollected = false;
             _showPosition = true;
             Console.CursorVisible = true;
             Console.Clear();
-            ResetTextColor();
+            Console.ResetColor();
         }
-
-        private static void RandomWall()
-        {
-            int x = 0;
-            int y = 0;
-            if (_doorPosX == 0)
-            {
-                x = _roomX - 1;
-                y = _doorPosY;
-            }
-            else if (_doorPosX == _roomX - 1)
-            {
-                x = 0;
-                y = _doorPosY;
-            }
-            else if (_doorPosY == 0)
-            {
-                x = _doorPosX;
-                y = _roomY - 1;
-            }
-            else if (_doorPosY == _roomY - 1)
-            {
-                x = _doorPosX;
-                y = 0;
-            }
-            else
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Invalid RandomWall()");
-            }
-
-            if (x == 0)
-            {
-                //left wall
-                MoveRight();
-            }
-            else if (x == _roomX - 1)
-            {
-                //right wall
-                MoveLeft();
-                RandomUpDown();
-            }
-            else if (y == 0)
-            {
-                //top wall
-                MoveDown();
-            }
-            else if (y == _roomY - 1)
-            {
-                //bottom wall
-                MoveUp();
-            }
-            else
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Invalid RandomWall()");
-                ResetTextColor();
-            }
-
-            void MoveLeft()
-            {
-                x -= 1;
-                _map[x, y] = (int)EMapTiles.Wall;
-            }
-
-            void MoveRight()
-            {
-                while (x < _roomX - 2 && y < _roomY - 1 && y > 1)
-                {
-                    x += 1;
-                    _map[x, y] = (int)EMapTiles.Wall;
-                    RandomUpDown();
-                }
-            }
-
-            void MoveDown()
-            {
-                y += 1;
-                _map[x, y] = (int)EMapTiles.Wall;
-            }
-
-            void MoveUp()
-            {
-                y -= 1;
-                _map[x, y] = (int)EMapTiles.Wall;
-            }
-
-            void RandomUpDown()
-            {
-                var r = Rnd.Next(0, 2);
-
-                switch (r)
-                {
-                    case 0:
-                        y += 1;
-                        _map[x, y] = (int)EMapTiles.Wall;
-                        break;
-                    case 1:
-                        y -= 1;
-                        _map[x, y] = (int)EMapTiles.Wall;
-                        break;
-                }
-            }
-        }
-
+        
         private static void DrawItem(ConsoleColor color, string icon)
         {
             Console.ForegroundColor = color;
@@ -729,125 +694,6 @@ namespace EscaperoomGame
             _enemyY = y;
 
             //_map[x, y] = (int)EMapTiles.Free;
-        }
-
-        private static void LevelTransition() // TODO: not finished yet
-        {
-            Console.Clear();
-            int[,] tempMap;
-            tempMap = _map;
-            int fieldsMoved = 1;
-            do
-            {
-                for (int y = 0; y < _map.GetLength(0); y++)
-                {
-                    for (int x = 0; x < _map.GetLength(1); x++)
-                    {
-                        if (y < _map.GetLength(1) - 1)
-                        {
-                            tempMap[x, y] = _map[x, y + fieldsMoved];
-                        }
-                    }
-                }
-
-                //print tempMap
-                /*
-                for (int y = 0; y < _map.GetLength(0); y++)
-                {
-                    for (int x = 0; x < _map.GetLength(1); x++)
-                    {
-                        Console.Write(_mapTileCharacters[_map[x, y]]);
-                    }
-                }
-                */
-                
-                Console.ForegroundColor = ConsoleColor.White;
-
-            for (int y = 0; y < _map.GetLength(0); y++)
-            {
-                for (int x = 0; x < _map.GetLength(1); x++)
-                {
-                    #region wall variations
-
-                    if (x == 0 && y == 0) // top left corner
-                    {
-                        Console.Write("\u250c"); // ┌
-                    }
-                    else if (y == 0 && x == _roomX - 1) // top right corner
-                    {
-                        Console.Write("\u2510"); // ┐
-                    }
-                    else if (y == _roomY - 1 && x == 0) // bottom left corner
-                    {
-                        Console.Write("\u2514"); // └
-                    }
-                    else if (y == _roomY - 1 && x == _roomX - 1) // bottom right corner
-                    {
-                        Console.Write("\u2518"); // ┘
-                    }
-                    else if (x == _doorPosX && y == _doorPosY) // door
-                    {
-                        if (_keyCollected)
-                        {
-                            Console.Write(" ");
-                        }
-                        else
-                        {
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.Write(_doorIcon);
-                            Console.ForegroundColor = ConsoleColor.White;
-                        }
-                    }
-                    else if (y == _roomY - 1 || y == 0) // top and bottom walls
-                    {
-                        Console.Write("\u2500"); // ─
-                    }
-                    else if (x == 0 || x == _roomX - 1) // left and right walls
-                    {
-                        Console.Write("\u2502"); // │
-                    }
-
-                    #endregion
-
-                    //else if (x == _keyPosX && y == _keyPosY)
-                    //{
-                    //    DrawItem(ConsoleColor.Yellow, _keyIcon);
-                    //}
-                    //else if (x == _playerX && y == _playerY) // draws player
-                    //{
-                    //    DrawItem(ConsoleColor.Cyan, _playerIcon);
-                    //}
-                    else // draws the rest of the enum, like free spaces
-                    {
-                        //if (_map[x, y] == (int)EMapTiles.Enemy)
-                        //{
-                        //    Console.ForegroundColor = ConsoleColor.Red;
-                        //}
-                        Console.Write(_mapTileCharacters[_map[x, y] + 1]);
-                        Console.ForegroundColor = ConsoleColor.White;
-                    }
-
-                    if (y == 0 && x != _roomX - 1 ||
-                        y == _roomY - 1 && x != _roomX - 1) //top/bottom wall draws 2 dashes
-                    {
-                        Console.Write('\u2500'); // ─
-                    }
-                    else
-                    {
-                        Console.Write(' '); // space after every character
-                    }
-
-                }
-
-                Console.WriteLine();
-
-                Console.ReadKey(true);
-                fieldsMoved++;
-
-            }
-            
-            } while (tempMap == _map);
-            
         }
     }
 }
