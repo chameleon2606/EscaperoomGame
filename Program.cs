@@ -68,10 +68,11 @@ namespace EscaperoomGame
         /// <summary>
         /// starts a new game and calls all the relevant functions
         /// </summary>
+        /// <returns>show item positions</returns>
         private static void NewGame()
         {
-            
             //initializes the _enemyTrail array to have 2 positions for each array
+            enemyLength = 6;
             _enemyTrail = new int[enemyLength][];
             for (int i = 0; i < _enemyTrail.Length; i++)
             {
@@ -143,10 +144,19 @@ namespace EscaperoomGame
             bool inputting = true;
             do
             {
-                PrintRawMap();
+                if (_roomX < RoomMinWidth)
+                {
+                    _roomX = RoomMinWidth;
+                }
 
-                ConsoleKeyInfo keyInput = Console.ReadKey(true);
-                switch (keyInput.Key)
+                if (_roomY < RoomMinHeight)
+                {
+                    _roomY = RoomMinHeight;
+                }
+                PrintRawMap();
+                
+                //arrow key input
+                switch (Console.ReadKey(true).Key)
                 {
                     case ConsoleKey.UpArrow:
                         if (_roomY > RoomMinHeight)
@@ -192,7 +202,7 @@ namespace EscaperoomGame
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.Write("arrow keys");
             Console.ResetColor();
-            Console.Write(" arrow keys to adjust the size of the room\n");
+            Console.Write(" to adjust the size of the room\n");
             
             for (int y = 0; y < _roomY; y++)
             {
@@ -471,8 +481,7 @@ namespace EscaperoomGame
         /// </summary>
         private static void PlayerControls()
         {
-            ConsoleKeyInfo keyInput = Console.ReadKey(true);
-            switch (keyInput.Key)
+            switch (Console.ReadKey(true).Key)
             {
                 case ConsoleKey.UpArrow:
                 case ConsoleKey.W:
@@ -528,6 +537,7 @@ namespace EscaperoomGame
                 {
                     if (_keyCollected)//player has key and enters the door
                     {
+                        NextLevel();
                         EndScreen(true); // player won
                     }
                     else //player cant go through the door
@@ -545,6 +555,28 @@ namespace EscaperoomGame
             {
                 ResetPlayer(prevPlayerX, prevPlayerY);
             }
+        }
+        
+        private static void NextLevel()
+        {
+            if (_roomX < 6 || _roomY < 6)
+            {
+                EndScreen(true);
+            }
+            _roomX--;
+            _roomY--;
+            enemyLength++;
+            _keyCollected = false;
+            foreach (var enemy in _enemyTrail)
+            {
+                enemy[0] = 0;
+                enemy[1] = 0;
+            }
+            
+            //algorithm to fill the map array
+            FillMapLogic();
+            
+            GameplayLoop();
         }
 
         /// <summary>
@@ -757,9 +789,15 @@ namespace EscaperoomGame
 
                     break;
             }
-            
-            _enemyTrail[0][0] = x;
-            _enemyTrail[0][1] = y;
+
+            if (x == _keyPosX && y == _keyPosY)
+            {
+            }
+            else
+            {
+                _enemyTrail[0][0] = x;
+                _enemyTrail[0][1] = y;
+            }
         }
 
         /// <summary>
